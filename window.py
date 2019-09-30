@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import cv2
 import numpy as np
 
+
 class Ui_MainWindow(object):
     # Setting up all the elements of the Main Window
     def setupUi(self, MainWindow):
@@ -80,7 +81,6 @@ class Ui_MainWindow(object):
         self.buttonGreen.clicked.connect(self.greenImage)
         self.buttonRed.clicked.connect(self.redImage)
 
-
     # Setting text on widgets
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -102,7 +102,7 @@ class Ui_MainWindow(object):
     # Function for selecting an image from file explorer
     def setImage(self):
         self.fileName, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Select an image", "",
-                                                            "Image Files (*.png *.jpg *.jpeg *.bmp)")
+                                                                 "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if self.fileName:
             pixmap = QtGui.QPixmap(self.fileName)
             pixmap = pixmap.scaled(self.frameImage.width(), self.frameImage.height(), QtCore.Qt.KeepAspectRatio)
@@ -165,6 +165,7 @@ class Ui_MainWindow(object):
         B, G, R = cv2.split(img)
         zeros = np.zeros(img.shape[:2], dtype="uint8")
         cv2.imshow("Blue", cv2.merge([zeros, zeros, R]))
+
 
 if __name__ == "__main__":
     import sys
