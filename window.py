@@ -76,16 +76,18 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         # For connecting button with a function
-        self.buttonSelectImage.clicked.connect(self.setImage)
-        self.buttonHSV.clicked.connect(self.hsvImage)
-        self.buttonHue.clicked.connect(self.hueImage)
-        self.buttonSaturation.clicked.connect(self.saturationImage)
-        self.buttonValue.clicked.connect(self.valueImage)
-        self.buttonBinary.clicked.connect(self.binaryImage)
-        self.buttonGrayscale.clicked.connect(self.grayscaleImage)
-        self.buttonBlue.clicked.connect(self.blueImage)
-        self.buttonGreen.clicked.connect(self.greenImage)
-        self.buttonRed.clicked.connect(self.redImage)
+        self.buttonSelectImage.clicked.connect(self.set_image)
+        self.buttonHSV.clicked.connect(self.hsv_image)
+        self.buttonHue.clicked.connect(self.hue_image)
+        self.buttonSaturation.clicked.connect(self.saturation_image)
+        self.buttonValue.clicked.connect(self.value_image)
+        self.buttonBinary.clicked.connect(self.binary_image)
+        self.buttonGrayscale.clicked.connect(self.grayscale_image)
+        self.buttonBlue.clicked.connect(self.blue_image)
+        self.buttonGreen.clicked.connect(self.green_image)
+        self.buttonRed.clicked.connect(self.red_image)
+        self.buttonTranslate.clicked.connect(self.translate_Image)
+        self.buttonScale.clicked.connect(self.scale_Image)
 
     # Setting text on widgets
     def retranslateUi(self, MainWindow):
@@ -108,72 +110,77 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(_translate("MainWindow", "About"))
 
     # Function for selecting an image from file explorer
-    def setImage(self):
-        self.fileName, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Select an image", "",
+    def set_image(self):
+        self.file_name, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Select an image", "",
                                                                  "Image Files (*.png *.jpg *.jpeg *.bmp)")
-        if self.fileName:
-            pixmap = QtGui.QPixmap(self.fileName)
+        if self.file_name:
+            pixmap = QtGui.QPixmap(self.file_name)
             pixmap = pixmap.scaled(self.frameImage.width(), self.frameImage.height(), QtCore.Qt.KeepAspectRatio)
             self.frameImage.setPixmap(pixmap)
             self.frameImage.setAlignment(QtCore.Qt.AlignCenter)
 
     # Function for converting selected image into binary
-    def binaryImage(self):
-        img = cv2.imread(self.fileName)
+    def binary_image(self):
+        img = cv2.imread(self.file_name)
         returnValue, blackAndWhite = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
         cv2.imshow("Black & White", blackAndWhite)
 
     # Function for converting selected image into binary
-    def hsvImage(self):
-        img = cv2.imread(self.fileName)
+    def hsv_image(self):
+        img = cv2.imread(self.file_name)
         img_HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         cv2.imshow("HSV Image", img_HSV)
 
     # Function for converting selected image into hue
-    def hueImage(self):
-        img = cv2.imread(self.fileName)
+    def hue_image(self):
+        img = cv2.imread(self.file_name)
         img_HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         cv2.imshow("Hue Image", img_HSV[:, :, 0])
 
     # Function for converting selected image into saturation
-    def saturationImage(self):
-        img = cv2.imread(self.fileName)
+    def saturation_image(self):
+        img = cv2.imread(self.file_name)
         img_HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         cv2.imshow("Saturation Image", img_HSV[:, :, 1])
 
     # Function for converting selected image into value
-    def valueImage(self):
-        img = cv2.imread(self.fileName)
+    def value_image(self):
+        img = cv2.imread(self.file_name)
         img_HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         cv2.imshow("Value Image", img_HSV[:, :, 2])
 
     # Function for converting selected image into grayscale
-    def grayscaleImage(self):
-        img = cv2.imread(self.fileName)
+    def grayscale_image(self):
+        img = cv2.imread(self.file_name)
         grayscale_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         cv2.imshow("Grayscale Image", grayscale_img)
 
     # Function for converting selected image into blue
-    def blueImage(self):
-        img = cv2.imread(self.fileName)
+    def blue_image(self):
+        img = cv2.imread(self.file_name)
         B, G, R = cv2.split(img)
         zeros = np.zeros(img.shape[:2], dtype="uint8")
         cv2.imshow("Blue", cv2.merge([B, zeros, zeros]))
 
     # Function for converting selected image into green
-    def greenImage(self):
-        img = cv2.imread(self.fileName)
+    def green_image(self):
+        img = cv2.imread(self.file_name)
         B, G, R = cv2.split(img)
         zeros = np.zeros(img.shape[:2], dtype="uint8")
         cv2.imshow("Blue", cv2.merge([zeros, G, zeros]))
 
     # Function for converting selected image into red
-    def redImage(self):
-        img = cv2.imread(self.fileName)
+    def red_image(self):
+        img = cv2.imread(self.file_name)
         B, G, R = cv2.split(img)
         zeros = np.zeros(img.shape[:2], dtype="uint8")
         cv2.imshow("Blue", cv2.merge([zeros, zeros, R]))
 
+    def translate_Image(self):
+        img = cv2.imread(self.file_name)
+
+    def scale_Image(self):
+        img = cv2.imread(self.file_name)
 
 if __name__ == "__main__":
     import sys
