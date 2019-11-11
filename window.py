@@ -4,6 +4,7 @@ import numpy as np
 
 
 class Ui_MainWindow(object):
+    """This is a documentation string"""
     # Setting up all the elements of the Main Window
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -91,6 +92,7 @@ class Ui_MainWindow(object):
 
     # Setting text on widgets
     def retranslateUi(self, MainWindow):
+        # _translate is a private var
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "FaceAttend"))
         self.buttonSelectImage.setText(_translate("MainWindow", "Select Image"))
@@ -111,8 +113,7 @@ class Ui_MainWindow(object):
 
     # Function for selecting an image from file explorer
     def set_image(self):
-        self.file_name, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Select an image", "",
-                                                                 "Image Files (*.png *.jpg *.jpeg *.bmp)")
+        self.file_name, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Select an image", "", "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if self.file_name:
             pixmap = QtGui.QPixmap(self.file_name)
             pixmap = pixmap.scaled(self.frameImage.width(), self.frameImage.height(), QtCore.Qt.KeepAspectRatio)
@@ -127,6 +128,7 @@ class Ui_MainWindow(object):
 
     # Function for converting selected image into binary
     def hsv_image(self):
+        """THIS IS HSV_IMAGE"""
         img = cv2.imread(self.file_name)
         img_HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         cv2.imshow("HSV Image", img_HSV)
@@ -184,7 +186,6 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
