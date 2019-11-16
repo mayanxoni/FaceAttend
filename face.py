@@ -5,7 +5,7 @@ classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cam = cv2.VideoCapture(0)
 
 
-def getProfile(student_id, student_name):
+def get_profile(student_id, student_name):
     conn = sqlite3.connect("facebase.db")
     cmd = "SELECT * FROM students WHERE ID = " + student_id
     cursor = conn.execute(cmd)
@@ -24,7 +24,7 @@ def getProfile(student_id, student_name):
 id = input("Enter User ID: ")
 name = input("Enter Username: ")
 ver = 0
-getProfile(id, name)
+get_profile(id, name)
 
 while True:
     ret, img = cam.read()
