@@ -1,45 +1,44 @@
 import cv2
 import sqlite3
 
-classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-cam = cv2.VideoCapture(0)
+image_classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+video_feed = cv2.VideoCapture(0)
 
 
 def get_profile(student_id, student_name):
-    conn = sqlite3.connect("facebase.db")
-    cmd = "SELECT * FROM students WHERE ID = " + student_id
-    cursor = conn.execute(cmd)
-    recordExists = 0
+    connection = sqlite3.connect("facebase.db")
+    command = "SELECT * FROM students WHERE ID = " + student_id
+    cursor = connection.execute(command)
+    record_exists = 0
     for row in cursor:
-        recordExists = 1
-    if recordExists == 1:
-        cmd = "UPDATE TABLE students SET Name = '" + str(student_name) + "' WHERE ID = " + student_id
+        record_exists = 1
+    if record_exists == 1:
+        command = "UPDATE TABLE students SET Name = '" + str(student_name) + "' WHERE ID = " + student_id
     else:
-        cmd = "INSERT INTO students(ID, Name) VALUES(" + student_id + ", '" + str(student_name) + "')"
-        conn.execute(cmd)
-        conn.commit()
-        conn.close()
+        command = "INSERT INTO students(ID, Name) VALUES(" + student_id + ", '" + str(student_name) + "')"
+        connection.execute(command)
+        connection.commit()
+        connection.close()
 
 
-id = input("Enter User ID: ")
-name = input("Enter Username: ")
-ver = 0
-get_profile(id, name)
+student_id = input("Enter User ID: ")
+student_name = input("Enter Username: ")
+image_version = 0
+get_profile(student_id, student_name)
 
 while True:
-    ret, img = cam.read()
-    grayscale_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = classifier.detectMultiScale(grayscale_image, 1.3, 5)
+    ret, image = video_feed.read()
+    grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = image_classifier.detectMultiScale(grayscale_image, 1.3, 5)
     for(x, y, w, h) in faces:
-        flipped_image = cv2.flip(grayscale_image, 1)
-        cv2.imwrite("dataSet/"+str(name)+"." + str(id) + ".version." + str(ver) + ".jpg", flipped_image[y:y + h, x:x + w])
-        cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
-        ver = ver + 1
+        cv2.imwrite("dataSet/" + str(student_name) + "." + str(student_id) + ".version." + str(image_version) + ".jpg", grayscale_image[y:y + h, x:x + w])
+        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        image_version = image_version + 1
         cv2.waitKey(100)
-    cv2.imshow("Face", img)
+    cv2.imshow("Face", image)
     cv2.waitKey(1)
-    if ver > 20:
+    if image_version > 20:
         break
 
-cam.release()
+video_feed.release()
 cv2.destroyAllWindows()
