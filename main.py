@@ -1,11 +1,20 @@
 import cv2
 import numpy as np
-
+import window
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
 img = cv2.imread('C:/Users/mayanxoni/PycharmProjects/openCVTest/img/tom.jpg')
 
 cv2.imshow('Tom Cruise', img)
 cv2.waitKey(0)
-
+print("1")
+obj = window.Ui_MainWindow()
+print("2")
+app = QtWidgets.QApplication(sys.argv)
+MainWindow = QtWidgets.QMainWindow()
+print("3")
+obj.setupUi(MainWindow)
+MainWindow.show()
 # returnValue, blackAndWhite = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
 # cv2.imshow("Black & White", blackAndWhite)
 # cv2.waitKey(0)
@@ -30,5 +39,6 @@ cv2.imshow("Green", cv2.merge([zeros, G, zeros]))
 cv2.waitKey(0)
 cv2.imshow("Red", cv2.merge([zeros, zeros, R]))
 cv2.waitKey(0)
+
 
 cv2.destroyAllWindows()
