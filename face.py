@@ -6,7 +6,7 @@ video_feed = cv2.VideoCapture(0)
 
 
 def get_profile(student_id, student_name):
-    connection = sqlite3.connect("facebase.db")
+    connection = sqlite3.connect("database/facebase.db")
     command = "SELECT * FROM students WHERE ID = " + student_id
     cursor = connection.execute(command)
     record_exists = 0
@@ -31,7 +31,7 @@ while True:
     grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = image_classifier.detectMultiScale(grayscale_image, 1.3, 5)
     for(x, y, w, h) in faces:
-        cv2.imwrite("dataSet/" + str(student_name) + "." + str(student_id) + ".version." + str(image_version) + ".jpg", grayscale_image[y:y + h, x:x + w])
+        cv2.imwrite("dataset/" + str(student_name) + "." + str(student_id) + ".version." + str(image_version) + ".jpg", grayscale_image[y:y + h, x:x + w])
         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
         image_version = image_version + 1
         cv2.waitKey(100)
