@@ -1,10 +1,10 @@
 import sys
+
 import cv2
 import mysql.connector
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
-
-from camera_feed_layout import *
 
 
 class datasetCreator(object):
