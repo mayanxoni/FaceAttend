@@ -1,8 +1,11 @@
 import cv2
-import sqlite3
 import mysql.connector
+from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtCore import QTimer
+from camera_feed_layout import *
 
-image_classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+image_classifier = cv2.CascadeClassifier('classifier.xml')
 video_feed = cv2.VideoCapture(0)
 
 
@@ -18,13 +21,18 @@ def get_profile(s_id, s_name):
             db_cursor.execute("INSERT INTO student(s_id, s_name) VALUES(" + s_id + ", '" + str(s_name) + "')")
             create_dataset()
         else:
-            print("Student already exists!")
+            messageBox = QMessageBox()
+            messageBox.setWindowTitle("Exception caught!")
+            messageBox.setText("User already exists!")
+            messageBox.setIcon(QMessageBox.Critical)
 
         connection.commit()
         connection.close()
     except Exception as e:
-        print(e)
-
+        messageBox = QMessageBox()
+        messageBox.setWindowTitle("Exception caught!")
+        messageBox.setText(str(e))
+        messageBox.setIcon(QMessageBox.Critical)
 
 student_id = input("Enter User ID: ")
 student_name = input("Enter Username: ")

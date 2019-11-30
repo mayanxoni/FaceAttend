@@ -11,7 +11,7 @@ def assure_path_exists(path):
 
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml");
+detector = cv2.CascadeClassifier("classifier.xml");
 
 
 def images_and_labels(path):

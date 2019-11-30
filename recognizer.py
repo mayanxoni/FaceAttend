@@ -12,7 +12,7 @@ def assure_path_exists(path):
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 assure_path_exists("trainer/")
 recognizer.read("trainer/trainer.yml")
-cascadePath = "haarcascade_frontalface_default.xml"
+cascadePath = "classifier.xml"
 faceCascade = cv2.CascadeClassifier(cascadePath)
 
 
