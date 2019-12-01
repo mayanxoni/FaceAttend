@@ -4,6 +4,7 @@ import sys
 import cv2
 import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
 
@@ -27,6 +28,7 @@ class datasetCreator(object):
         form_dataset_creator.setFixedSize(720, 480)
         form_dataset_creator.setWindowTitle("Dataset Creator")
         icon = QtGui.QIcon()
+        self.timer = QTimer()
         icon.addPixmap(QtGui.QPixmap(":/newPrefix/FaceAttend.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_dataset_creator.setWindowIcon(icon)
         self.horizontalLayout = QtWidgets.QHBoxLayout(form_dataset_creator)
@@ -52,7 +54,10 @@ class datasetCreator(object):
         self.retranslateUi(form_dataset_creator)
         self.comboBox.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(form_dataset_creator)
-        self.button_capture.clicked.connect(self.get_profile)
+        # self.button_capture.clicked.connect(self.get_profile)
+
+        self.timer.timeout.connect(self.viewCam)
+        self.button_capture.clicked.connect(self.controlTimer)
 
         try:
             connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
@@ -68,6 +73,24 @@ class datasetCreator(object):
             messageBox.setWindowTitle("Exception caught!")
             messageBox.setText(str(e))
             messageBox.setIcon(QMessageBox.Critical)
+
+    def viewCam(self):
+        ret, image = self.cap.read()
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        height, width, channel = image.shape
+        step = channel * width
+        qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
+        self.label_camera_feed.setPixmap(QPixmap.fromImage(qImg))
+
+    def controlTimer(self):
+        if not self.timer.isActive():
+            self.cap = cv2.VideoCapture(0)
+            self.timer.start(20)
+            self.button_capture.setText("Stop")
+        else:
+            self.timer.stop()
+            self.cap.release()
+            self.button_capture.setText("Start")
 
     def retranslateUi(self, form_dataset_creator):
         _translate = QtCore.QCoreApplication.translate
@@ -87,9 +110,8 @@ class datasetCreator(object):
         image_version = 0
         while True:
             ret, image = self.video_feed.read()
-            # height, width, channel = image.shape
-            # step = channel * width
             q_image = QImage(image, image.shape[1], image.shape[0], image.strides[0], QImage.Format_RGB888)
+            self.label_camera_feed.setPixmap(QPixmap.fromImage(q_image))
             grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             faces = self.image_classifier.detectMultiScale(image, 1.3, 5)
             assure_path_exists('dataset/')
@@ -98,12 +120,10 @@ class datasetCreator(object):
                 # cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
                 image_version = image_version + 1
                 # cv2.waitKey(100)
-            self.label_camera_feed.setPixmap(QPixmap.fromImage(q_image))
             # cv2.imshow("Face", image)
             # cv2.waitKey(1)
-            if image_version > 20:
+            if image_version > 100:
                 self.video_feed.release()
-                cv2.destroyWindow(datasetCreator)
                 break
 
 
