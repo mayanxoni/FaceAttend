@@ -1,6 +1,7 @@
-import cv2
 import os
-import sqlite3
+
+import cv2
+import mysql.connector
 
 
 def assure_path_exists(path):
@@ -9,26 +10,33 @@ def assure_path_exists(path):
         os.makedirs(directory)
 
 
+font = cv2.FONT_HERSHEY_SIMPLEX
+video_feed = cv2.VideoCapture(0)
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 assure_path_exists("trainer/")
 recognizer.read("trainer/trainer.yml")
-cascadePath = "classifier.xml"
-faceCascade = cv2.CascadeClassifier(cascadePath)
+classifier_path = "classifier.xml"
+faceCascade = cv2.CascadeClassifier(classifier_path)
 
 
-def get_profile(student_id):
-    connection = sqlite3.connect("database/facebase.db")
-    command = "SELECT * FROM students WHERE ID = " + str(student_id)
-    cursor = connection.execute(command)
-    student_profile = None
-    for row in cursor:
+def get_profile(s_enroll):
+    try:
+        connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
+        db_cursor = connection.cursor()
+        db_cursor.execute("SELECT s_name FROM studentdetails WHERE s_enroll = " + str(s_enroll))
+        query_result = db_cursor.fetchone()
+        for row in query_result:
+            print(row)
         student_profile = row
-    connection.close()
-    return student_profile
+        return student_profile
 
+    except Exception as e:
+        print(e)
+        # messageBox = QMessageBox()
+        # messageBox.setWindowTitle("Exception caught!")
+        # messageBox.setText(str(e))
+        # messageBox.setIcon(QMessageBox.Critical)
 
-font = cv2.FONT_HERSHEY_SIMPLEX
-video_feed = cv2.VideoCapture(0)
 
 while True:
     ret, image = video_feed.read()
@@ -39,8 +47,7 @@ while True:
         cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
         profile = get_profile(student_id)
         if profile is not None:
-            cv2.putText(image, str(profile[0]), (x, y + h + 30), font, 1, (0, 0, 255), 3)
-            cv2.putText(image, str(profile[1]), (x, y + h + 60), font, 1, (0, 0, 255), 3)
+            cv2.putText(image, profile, (x, y + h + 30), font, 1, (0, 0, 255), 3)
     cv2.imshow('Face', image)
     if cv2.waitKey(10) & 0xFF == ord('q'):
         break

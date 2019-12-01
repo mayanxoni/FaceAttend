@@ -1,3 +1,4 @@
+import os
 import sys
 
 import cv2
@@ -7,10 +8,17 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
 
 
+def assure_path_exists(path):
+    directory = os.path.dirname(path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+
 class datasetCreator(object):
 
     def __init__(self):
-        self.image_classifier = cv2.CascadeClassifier('classifier.xml')
+        self.classifier_path = "classifier.xml"
+        self.image_classifier = cv2.CascadeClassifier(self.classifier_path)
         self.video_feed = cv2.VideoCapture(0)
 
     def setupUi(self, form_dataset_creator):
@@ -84,8 +92,9 @@ class datasetCreator(object):
             q_image = QImage(image, image.shape[1], image.shape[0], image.strides[0], QImage.Format_RGB888)
             grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             faces = self.image_classifier.detectMultiScale(image, 1.3, 5)
+            assure_path_exists('dataset/')
             for (x, y, w, h) in faces:
-                cv2.imwrite("dataset/" + str(s_enroll) + ".v" + str(image_version) + ".jpg", grayscale_image[y:y + h, x:x + w])
+                cv2.imwrite("dataset/" + str(s_enroll) + "." + str(image_version) + ".jpg", grayscale_image[y:y + h, x:x + w])
                 # cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
                 image_version = image_version + 1
                 # cv2.waitKey(100)
@@ -94,6 +103,7 @@ class datasetCreator(object):
             # cv2.waitKey(1)
             if image_version > 20:
                 self.video_feed.release()
+                cv2.destroyWindow(datasetCreator)
                 break
 
 

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>form_camera_feed</class>
+ <widget class="QWidget" name="form_camera_feed">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Camera Feed</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="q.qrc">
+    <normaloff>:/newPrefix/FaceAttend.png</normaloff>:/newPrefix/FaceAttend.png</iconset>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QVBoxLayout" name="layout_vertical">
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="toolTip">
+        <string>Select enrollment number of the student.</string>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="currentText">
+        <string/>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+       <property name="duplicatesEnabled">
+        <bool>false</bool>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>1111111111</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2222222222</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3333333333</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4444444444</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5555555555</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6666666666</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>7777777777</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>8888888888</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>9999999999</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label_image">
+       <property name="text">
+        <string>To start live camera feed, click &quot;Capture&quot; button.</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_capture">
+       <property name="text">
+        <string>Capture</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="q.qrc"/>
+ </resources>
+ <connections/>
+</ui>
