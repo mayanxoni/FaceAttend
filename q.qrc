@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>logout.png</file>
+    <file>settings.png</file>
     <file>FaceAttend.png</file>
+    <file>user.png</file>
+    <file>chart.png</file>
   </qresource>
 </RCC>
