@@ -24,7 +24,7 @@ def images_and_labels(path):
         img_pil = Image.open(image_path).convert('L')
         img_numpy = np.array(img_pil, 'uint8')
         image_id = int(os.path.split(image_path)[-1].split(".")[0])
-        print(image_id)
+        print(image_path)
         faces_in_images = detector.detectMultiScale(img_numpy)
         for (x, y, w, h) in faces_in_images:
             list_face_samples.append(img_numpy[y:y + h, x:x + w])
