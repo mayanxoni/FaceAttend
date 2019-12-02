@@ -27,7 +27,7 @@
        </property>
        <property name="icon">
         <iconset resource="q.qrc">
-         <normaloff>:/newPrefix/logout.png</normaloff>:/newPrefix/logout.png</iconset>
+         <normaloff>../assets/ui/logout.png</normaloff>../assets/ui/logout.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -73,7 +73,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="q.qrc">:/newPrefix/user.png</pixmap>
+      <pixmap resource="q.qrc">../assets/ui/user.png</pixmap>
      </property>
     </widget>
    </item>
@@ -109,7 +109,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>teachers.png</normaloff>teachers.png</iconset>
+         <normaloff>../assets/ui/teachers.png</normaloff>../assets/ui/teachers.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -139,7 +139,7 @@
        </property>
        <property name="icon">
         <iconset resource="q.qrc">
-         <normaloff>:/newPrefix/chart.png</normaloff>:/newPrefix/chart.png</iconset>
+         <normaloff>../assets/ui/chart.png</normaloff>../assets/ui/chart.png</iconset>
        </property>
        <property name="iconSize">
         <size>
