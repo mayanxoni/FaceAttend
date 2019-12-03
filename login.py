@@ -1,5 +1,8 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+import hashlib
 
+import mysql.connector
+from PyQt5 import QtCore, QtGui, QtWidgets
+from ErrorMessg import  Ui_Dialog
 
 class Ui_form_login(object):
     def setupUi(self, form_login):
@@ -86,6 +89,7 @@ class Ui_form_login(object):
         form_login.setTabOrder(self.line_edit_username, self.line_edit_password)
         form_login.setTabOrder(self.line_edit_password, self.button_login)
         form_login.setTabOrder(self.button_login, self.button_signup)
+        self.button_login.clicked.connect(self.FunChecking)
 
     def retranslateUi(self, form_login):
         _translate = QtCore.QCoreApplication.translate
@@ -94,13 +98,55 @@ class Ui_form_login(object):
         self.button_signup.setText(_translate("form_login", "Signup"))
         self.line_edit_password.setToolTip(_translate("form_login", "Enter your password."))
         self.line_edit_password.setPlaceholderText(_translate("form_login", "Password"))
-        self.label_placeholder.setText(_translate("form_login", "Don\'t have access to username/password?\n"
-"Contact Computer Centre or Signup to gain access."))
+        self.label_placeholder.setText(_translate("form_login", "Don\'t have access to username/password?\n""Contact Computer Centre or Signup to gain access."))
         self.line_edit_username.setToolTip(_translate("form_login", "Enter your username."))
         self.line_edit_username.setPlaceholderText(_translate("form_login", "Username"))
         self.button_login.setToolTip(_translate("form_login", "Click to Login!"))
         self.button_login.setText(_translate("form_login", "Login"))
 
+
+    def FunChecking(self):
+        UserName = self.line_edit_username.text()
+        PassWD = self.line_edit_password.text()
+        Pass2 = hashlib.sha1(str(PassWD).encode())
+        PassWD = Pass2.hexdigest()
+        if UserName == "" and  self.line_edit_password.text() == "":
+            self.ErrorReport(str("Please Enter Your Username And Password."))
+        elif UserName == "" :
+            self.ErrorReport(str("Please Enter Your Useraname."))
+        elif self.line_edit_password.text() == "" :
+            self.ErrorReport(str("Please Enter Your Password. "))
+        try:
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                database="collegeattend",
+                passwd=""
+            )
+            mycursor = mydb.cursor()
+            mycursor.execute("SELECT userid FROM userdatabase where userid = %s and pass = %s",(UserName, PassWD,))
+            myresult = mycursor.fetchone()
+            if myresult is None:
+                self.ErrorReport(str("Username or password don't match."))
+            elif myresult[0] == "Admin":
+                self.ErrorReport(str("admin account"))
+            else:
+                self.ErrorReport(str("Teacher account"))
+                    # self.window = QtWidgets.QMainWindow()
+                    # self.ui = Ui_dash(userName)
+                    # self.ui.setupUi(self.window)
+                    # MainWindow.hide()
+                    # self.window.show()
+        except mysql.connector.Error as e:
+            self.ErrorReport(format(e))
+            print(e.errno)
+            print(e.sqlstate)
+            print("Failed to insert into MySQL table {}".format(e))
+
+    def ErrorReport(self,message):
+        messageBox = QtWidgets.QMessageBox()
+        ui = Ui_Dialog(message)
+        ui.setupUi(messageBox)
 
 if __name__ == "__main__":
     import sys
@@ -109,4 +155,17 @@ if __name__ == "__main__":
     ui = Ui_form_login()
     ui.setupUi(form_login)
     form_login.show()
+    sys._excepthook = sys.excepthook
+
+
+    def my_exception_hook(exctype, value, traceback):
+        # Print the error and traceback
+        print(exctype, value, traceback)
+        # Call the normal Exception hook after
+        sys._excepthook(exctype, value, traceback)
+        sys.exit(1)
+
+
+    # Set the exception hook to our wrapping function
+    sys.excepthook = my_exception_hook
     sys.exit(app.exec_())
