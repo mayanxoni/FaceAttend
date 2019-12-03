@@ -1,9 +1,0 @@
-<RCC>
-  <qresource prefix="newPrefix">
-    <file>logout.png</file>
-    <file>../assets/ui/settings.png</file>
-    <file>FaceAttend.png</file>
-    <file>../assets/ui/user.png</file>
-    <file>../assets/ui/chart.png</file>
-  </qresource>
-</RCC>
