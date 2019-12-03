@@ -30,7 +30,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../icons/FaceAttend2.png</normaloff>../icons/FaceAttend2.png</iconset>
+    <normaloff>assets/FaceAttend2.png</normaloff>assets/FaceAttend2.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -73,7 +73,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../icons/key.png</normaloff>../icons/key.png</iconset>
+        <normaloff>assets/key.png</normaloff>assets/key.png</iconset>
       </property>
      </widget>
     </item>
@@ -119,7 +119,7 @@ Contact Computer Centre or Signup to gain access.</string>
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../icons/FaceAttend2.png</pixmap>
+       <pixmap>assets/FaceAttend2.png</pixmap>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -175,7 +175,7 @@ Contact Computer Centre or Signup to gain access.</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../icons/unlock.png</normaloff>../icons/unlock.png</iconset>
+        <normaloff>assets/unlock.png</normaloff>assets/unlock.png</iconset>
       </property>
      </widget>
     </item>

@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'login.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.2
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -19,7 +10,7 @@ class Ui_form_login(object):
         form_login.setFixedSize(380, 420)
         form_login.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../icons/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_login.setWindowIcon(icon)
         form_login.setLayoutDirection(QtCore.Qt.LeftToRight)
         form_login.setAutoFillBackground(False)
@@ -40,7 +31,7 @@ class Ui_form_login(object):
         self.button_signup = QtWidgets.QPushButton(self.central_widget)
         self.button_signup.setFocusPolicy(QtCore.Qt.StrongFocus)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../icons/key.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("assets/key.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_signup.setIcon(icon1)
         self.button_signup.setObjectName("button_signup")
         self.gridLayout.addWidget(self.button_signup, 9, 0, 1, 1)
@@ -58,7 +49,7 @@ class Ui_form_login(object):
         self.gridLayout.addWidget(self.label_placeholder, 8, 0, 1, 1)
         self.label_faceattend_icon = QtWidgets.QLabel(self.central_widget)
         self.label_faceattend_icon.setText("")
-        self.label_faceattend_icon.setPixmap(QtGui.QPixmap("../icons/FaceAttend2.png"))
+        self.label_faceattend_icon.setPixmap(QtGui.QPixmap("assets/FaceAttend2.png"))
         self.label_faceattend_icon.setAlignment(QtCore.Qt.AlignCenter)
         self.label_faceattend_icon.setObjectName("label_faceattend_icon")
         self.gridLayout.addWidget(self.label_faceattend_icon, 1, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
@@ -80,7 +71,7 @@ class Ui_form_login(object):
         self.button_login = QtWidgets.QPushButton(self.central_widget)
         self.button_login.setFocusPolicy(QtCore.Qt.StrongFocus)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../icons/unlock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("assets/unlock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_login.setIcon(icon2)
         self.button_login.setObjectName("button_login")
         self.gridLayout.addWidget(self.button_login, 6, 0, 1, 1)
