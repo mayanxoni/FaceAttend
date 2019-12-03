@@ -15,19 +15,22 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../icons/FaceAttend2.png</normaloff>../icons/FaceAttend2.png</iconset>
+    <normaloff>assets/FaceAttend2.png</normaloff>assets/FaceAttend2.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="grid_layout">
      <item row="0" column="0" alignment="Qt::AlignRight">
       <widget class="QPushButton" name="button_logout">
+       <property name="toolTip">
+        <string>Logout</string>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../icons/logout.png</normaloff>../icons/logout.png</iconset>
+         <normaloff>assets/logout.png</normaloff>assets/logout.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -49,7 +52,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Google Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#888a85;&quot;&gt;ADMIN PANEL&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600; color:#888a85;&quot;&gt;ADMIN PANEL&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -77,14 +80,14 @@ p, li { white-space: pre-wrap; }
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>../icons/user.png</pixmap>
+      <pixmap>assets/user.png</pixmap>
      </property>
     </widget>
    </item>
    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
     <widget class="QLabel" name="label_designation">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Head of Department&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Department of Computer Science&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Mohanlal Sukhadia University&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Head of Department&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Department of Computer Science&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Mohanlal Sukhadia University&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -108,12 +111,15 @@ p, li { white-space: pre-wrap; }
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Subject Allotment</string>
+       </property>
        <property name="text">
         <string>Subject Allotment</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../icons/teachers.png</normaloff>../icons/teachers.png</iconset>
+         <normaloff>assets/teachers.png</normaloff>assets/teachers.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -138,12 +144,15 @@ p, li { white-space: pre-wrap; }
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Performance Analysis</string>
+       </property>
        <property name="text">
         <string>Performance Analysis</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../icons/chart.png</normaloff>../icons/chart.png</iconset>
+         <normaloff>assets/line_chart.png</normaloff>assets/line_chart.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -170,6 +179,11 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>button_subject_allotment</tabstop>
+  <tabstop>button_performance_analysis</tabstop>
+  <tabstop>button_logout</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
