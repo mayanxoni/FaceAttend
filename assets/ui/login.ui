@@ -29,8 +29,8 @@
    <string>Login</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="FaceAttend.qrc">
-    <normaloff>:/ui_elements/FaceAttend.png</normaloff>:/ui_elements/FaceAttend.png</iconset>
+   <iconset>
+    <normaloff>../icons/FaceAttend2.png</normaloff>../icons/FaceAttend2.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -72,15 +72,8 @@
        <string>Signup</string>
       </property>
       <property name="icon">
-       <iconset resource="FaceAttend.qrc">
-        <normaloff>:/ui_elements/key.png</normaloff>:/ui_elements/key.png</iconset>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_spacer_middle_1">
-      <property name="text">
-       <string/>
+       <iconset>
+        <normaloff>../icons/key.png</normaloff>../icons/key.png</iconset>
       </property>
      </widget>
     </item>
@@ -126,7 +119,7 @@ Contact Computer Centre or Signup to gain access.</string>
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>FaceAttend2.png</pixmap>
+       <pixmap>../icons/FaceAttend2.png</pixmap>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -144,23 +137,6 @@ Contact Computer Centre or Signup to gain access.</string>
      <widget class="QLabel" name="label_spacer_middle_2">
       <property name="text">
        <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QPushButton" name="button_login">
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="toolTip">
-       <string>Click to Login!</string>
-      </property>
-      <property name="text">
-       <string>Login</string>
-      </property>
-      <property name="icon">
-       <iconset resource="FaceAttend.qrc">
-        <normaloff>:/ui_elements/unlock.png</normaloff>:/ui_elements/unlock.png</iconset>
       </property>
      </widget>
     </item>
@@ -183,6 +159,30 @@ Contact Computer Centre or Signup to gain access.</string>
       </property>
       <property name="clearButtonEnabled">
        <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="button_login">
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string>Click to Login!</string>
+      </property>
+      <property name="text">
+       <string>Login</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../icons/unlock.png</normaloff>../icons/unlock.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_spacer_middle_1">
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>
