@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>form_dashboard</class>
+ <widget class="QWidget" name="form_dashboard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dashboard</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>assets/FaceAttend2.png</normaloff>assets/FaceAttend2.png</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="grid_layout_top">
+     <item row="0" column="0" alignment="Qt::AlignRight|Qt::AlignVCenter">
+      <widget class="QPushButton" name="button_logout">
+       <property name="toolTip">
+        <string>Terminate Session</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>assets/logout.png</normaloff>assets/logout.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_teacher_dashboard">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600; color:#888a85;&quot;&gt;TEACHER DASHBOARD&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="label_greetings">
+     <property name="text">
+      <string>Hello Teacher, hope you're having a good day!</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="label_dashboard_icon">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>1</width>
+       <height>1</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>assets/briefcase.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_spacer_middle">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="label_placeholder">
+     <property name="text">
+      <string>Please choose any one of the operations to get started!</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="grid_layout_1">
+     <item row="1" column="0" colspan="2">
+      <layout class="QHBoxLayout" name="horizontal_layout">
+       <item>
+        <layout class="QGridLayout" name="grid_layout_2">
+         <item row="1" column="3" alignment="Qt::AlignVCenter">
+          <widget class="QPushButton" name="button_update">
+           <property name="toolTip">
+            <string>Update Attendance</string>
+           </property>
+           <property name="text">
+            <string>Update Attendance</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>assets/reload.png</normaloff>assets/reload.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="5" alignment="Qt::AlignVCenter">
+          <widget class="QPushButton" name="button_register">
+           <property name="toolTip">
+            <string>Register Faces</string>
+           </property>
+           <property name="text">
+            <string>Register Faces</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>assets/webcam.png</normaloff>assets/webcam.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" alignment="Qt::AlignVCenter">
+          <widget class="QPushButton" name="button_record">
+           <property name="toolTip">
+            <string>Record Attendance</string>
+           </property>
+           <property name="text">
+            <string>Record Attendance</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>assets/check.png</normaloff>assets/check.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="6">
+          <widget class="QLabel" name="label_spacer_2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_spacer_1">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="Line" name="line_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_soacer_bottom">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>button_record</tabstop>
+  <tabstop>button_update</tabstop>
+  <tabstop>button_register</tabstop>
+  <tabstop>button_logout</tabstop>
+ </tabstops>
+ <resources>
+  <include location="FaceAttend.qrc"/>
+  <include location="FaceAttend.qrc"/>
+ </resources>
+ <connections/>
+</ui>
