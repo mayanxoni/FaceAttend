@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>subject_allotment</class>
+ <widget class="QWidget" name="subject_allotment">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Subject Allotment</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>assets/FaceAttend2.png</normaloff>assets/FaceAttend2.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_4">
+   <item row="6" column="0" rowspan="11">
+    <widget class="QListWidget" name="list_widget_available"/>
+   </item>
+   <item row="12" column="1" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="button_remove">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>assets/left.png</normaloff>assets/left.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="1" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="button_add">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>assets/right.png</normaloff>assets/right.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="button_select">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>assets/select.png</normaloff>assets/select.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="label_placeholder">
+     <property name="text">
+      <string>You can allot or withhold the subject(s) by selecting name of the teacher from the list below:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2" rowspan="11">
+    <widget class="QListWidget" name="list_widget_allotted"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label_teachers_icon">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>assets/group.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" alignment="Qt::AlignHCenter">
+    <widget class="QLabel" name="label_available">
+     <property name="text">
+      <string>Available Subject(s)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2" alignment="Qt::AlignHCenter">
+    <widget class="QLabel" name="label_allotted">
+     <property name="text">
+      <string>Allotted Subject(s)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="18" column="0" colspan="3" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="button_update">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>assets/tick.png</normaloff>assets/tick.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="1">
+    <widget class="QLabel" name="label_spacer_bottom">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QLabel" name="label_spacer_top">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="3">
+    <widget class="QComboBox" name="comboBox"/>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>comboBox</tabstop>
+  <tabstop>button_select</tabstop>
+  <tabstop>list_widget_available</tabstop>
+  <tabstop>list_widget_allotted</tabstop>
+  <tabstop>button_add</tabstop>
+  <tabstop>button_remove</tabstop>
+  <tabstop>button_update</tabstop>
+ </tabstops>
+ <resources>
+  <include location="FaceAttend.qrc"/>
+ </resources>
+ <connections/>
+</ui>
