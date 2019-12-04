@@ -8,10 +8,11 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from  subject_allotment import Ui_subject_allotment
 
 class Ui_form_admin_panel(object):
     def setupUi(self, form_admin_panel):
+        self.ob = form_admin_panel
         form_admin_panel.setObjectName("form_admin_panel")
         form_admin_panel.resize(720, 480)
         icon = QtGui.QIcon()
@@ -97,7 +98,8 @@ class Ui_form_admin_panel(object):
         QtCore.QMetaObject.connectSlotsByName(form_admin_panel)
         form_admin_panel.setTabOrder(self.button_subject_allotment, self.button_performance_analysis)
         form_admin_panel.setTabOrder(self.button_performance_analysis, self.button_logout)
-        # self.button_logout.clicked.connect(self.FunLogout)
+        self.button_logout.clicked.connect(self.FuncLogout)
+        self.button_subject_allotment.clicked.connect(self.FuncSubAllocation)
 
     def retranslateUi(self, form_admin_panel):
         _translate = QtCore.QCoreApplication.translate
@@ -114,8 +116,16 @@ class Ui_form_admin_panel(object):
         self.button_performance_analysis.setToolTip(_translate("form_admin_panel", "Performance Analysis"))
         self.button_performance_analysis.setText(_translate("form_admin_panel", "Performance Analysis"))
 
+    def FuncLogout(self):
+        self.ob.close()
 
+    def FuncSubAllocation(self):
 
+        self.WinSubAllot = QtWidgets.QWidget()
+        self.ui = Ui_subject_allotment()
+        self.ui.setupUi(self.WinSubAllot)
+        self.ob.hide()
+        self.WinSubAllot.show()
 
 
 

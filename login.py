@@ -4,6 +4,7 @@ import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ErrorMessg import  Ui_Dialog
 from admin_panel import  Ui_form_admin_panel
+from signup import Ui_form_signup
 
 
 class Ui_form_login(object):
@@ -93,6 +94,7 @@ class Ui_form_login(object):
         form_login.setTabOrder(self.button_login, self.button_signup)
         self.button_login.clicked.connect(self.FunChecking)
         self.line_edit_password.returnPressed.connect(self.FunChecking)
+        self.button_signup.clicked.connect(self.FuncSignup)
 
     def retranslateUi(self, form_login):
         _translate = QtCore.QCoreApplication.translate
@@ -136,7 +138,7 @@ class Ui_form_login(object):
                 self.WinAdmin = QtWidgets.QWidget()
                 self.ui = Ui_form_admin_panel()
                 self.ui.setupUi(self.WinAdmin)
-                form_login.hide()
+                form_login.close()
                 self.WinAdmin.show()
             else:
                 self.ErrorReport(str("Teacher account"))
@@ -150,6 +152,16 @@ class Ui_form_login(object):
             print(e.errno)
             print(e.sqlstate)
             print("Failed to insert into MySQL table {}".format(e))
+
+
+    def FuncSignup(self):
+        self.WinSignup = QtWidgets.QWidget()
+        self.ui = Ui_form_signup()
+        self.ui.setupUi(self.WinSignup)
+        form_login.hide()
+        self.WinSignup.show()
+
+
 
     def ErrorReport(self,message):
         messageBox = QtWidgets.QMessageBox()
