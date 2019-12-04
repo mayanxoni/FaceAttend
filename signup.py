@@ -90,10 +90,6 @@ class Ui_form_login(object):
         self.line_edit_contact_number.setPlaceholderText(_translate("form_login", "Contact Number"))
         self.line_edit_fullname.setPlaceholderText(_translate("form_login", "Full Name"))
 
-    def siginWindow(self):
-        ajkdjkafbjb
-        asbhdbahsbd
-
 
 if __name__ == "__main__":
     import sys
