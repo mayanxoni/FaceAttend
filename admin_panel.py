@@ -43,7 +43,7 @@ class Ui_form_admin_panel(object):
         self.label_admin_icon.setMinimumSize(QtCore.QSize(1, 1))
         self.label_admin_icon.setBaseSize(QtCore.QSize(0, 0))
         self.label_admin_icon.setText("")
-        self.label_admin_icon.setPixmap(QtGui.QPixmap("assets/user.png"))
+        self.label_admin_icon.setPixmap(QtGui.QPixmap("assets/admin.png"))
         self.label_admin_icon.setObjectName("label_admin_icon")
         self.verticalLayout.addWidget(self.label_admin_icon, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.label_designation = QtWidgets.QLabel(form_admin_panel)

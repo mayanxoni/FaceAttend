@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>performance_analysis</class>
+ <widget class="QWidget" name="performance_analysis">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>905</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Performance Analysis</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>assets/FaceAttend2.png</normaloff>assets/FaceAttend2.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="grid_layout">
+   <item row="0" column="0" colspan="3">
+    <layout class="QGridLayout" name="grid_layout_1">
+     <item row="0" column="0" alignment="Qt::AlignLeft">
+      <widget class="QPushButton" name="button_back">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>assets/return.png</normaloff>assets/return.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label_update_attendance">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600; color:#888a85;&quot;&gt;UPDATE ATTENDANCE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_spacer">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="10" column="0" rowspan="2" colspan="3">
+    <layout class="QGridLayout" name="grid_layout_2">
+     <item row="0" column="4">
+      <layout class="QVBoxLayout" name="vertical_layout_3">
+       <item>
+        <widget class="QCheckBox" name="checkbox_3">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="4">
+      <layout class="QVBoxLayout" name="vertical_layout_8">
+       <item>
+        <widget class="QCheckBox" name="checkbox_8">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="2">
+      <layout class="QVBoxLayout" name="vertical_layout_2">
+       <item>
+        <widget class="QCheckBox" name="checkbox_2">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="2">
+      <layout class="QVBoxLayout" name="vertical_layout_7">
+       <item>
+        <widget class="QCheckBox" name="checkbox_7">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="vertical_layout_1">
+       <item>
+        <widget class="QCheckBox" name="checkbox_1">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_1">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="8">
+      <layout class="QVBoxLayout" name="vertical_layout_5">
+       <item>
+        <widget class="QCheckBox" name="checkbox_5">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="7">
+      <widget class="Line" name="v_line_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="Line" name="h_line_1">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="8">
+      <layout class="QVBoxLayout" name="vertical_layout_10">
+       <item>
+        <widget class="QCheckBox" name="checkbox_10">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="6">
+      <layout class="QVBoxLayout" name="vertical_layout_4">
+       <item>
+        <widget class="QCheckBox" name="checkbox_4">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="1">
+      <widget class="Line" name="v_line_1">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="6">
+      <layout class="QVBoxLayout" name="vertical_layout_9">
+       <item>
+        <widget class="QCheckBox" name="checkbox_9">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="1">
+      <widget class="Line" name="v_line_5">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <layout class="QVBoxLayout" name="vertical_layout_6">
+       <item>
+        <widget class="QCheckBox" name="checkbox_6">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="5">
+      <widget class="Line" name="v_line_7">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="Line" name="v_line_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="Line" name="v_line_6">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="Line" name="v_line_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="7">
+      <widget class="Line" name="v_line_8">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="Line" name="h_line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="Line" name="h_line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="Line" name="h_line_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="8">
+      <widget class="Line" name="h_line_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="13" column="0" colspan="3" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="button_update">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>assets/tick.png</normaloff>assets/tick.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="label_update_icon">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>assets/reload.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="label_placeholder">
+     <property name="text">
+      <string>Check or uncheck the boxes to change the status of the attendance record of the student:</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>checkbox_1</tabstop>
+  <tabstop>checkbox_2</tabstop>
+  <tabstop>checkbox_3</tabstop>
+  <tabstop>checkbox_4</tabstop>
+  <tabstop>checkbox_5</tabstop>
+  <tabstop>checkbox_6</tabstop>
+  <tabstop>checkbox_7</tabstop>
+  <tabstop>checkbox_8</tabstop>
+  <tabstop>checkbox_9</tabstop>
+  <tabstop>checkbox_10</tabstop>
+  <tabstop>button_update</tabstop>
+  <tabstop>button_back</tabstop>
+ </tabstops>
+ <resources>
+  <include location="FaceAttend.qrc"/>
+ </resources>
+ <connections/>
+</ui>
