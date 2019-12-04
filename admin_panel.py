@@ -97,11 +97,12 @@ class Ui_form_admin_panel(object):
         QtCore.QMetaObject.connectSlotsByName(form_admin_panel)
         form_admin_panel.setTabOrder(self.button_subject_allotment, self.button_performance_analysis)
         form_admin_panel.setTabOrder(self.button_performance_analysis, self.button_logout)
+        # self.button_logout.clicked.connect(self.FunLogout)
 
     def retranslateUi(self, form_admin_panel):
         _translate = QtCore.QCoreApplication.translate
         form_admin_panel.setWindowTitle(_translate("form_admin_panel", "Admin Panel"))
-        self.button_logout.setToolTip(_translate("form_admin_panel", "Logout"))
+        self.button_logout.setToolTip(_translate("form_admin_panel", "Terminate Session"))
         self.label_admin_panel.setText(_translate("form_admin_panel", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -114,6 +115,10 @@ class Ui_form_admin_panel(object):
         self.button_performance_analysis.setText(_translate("form_admin_panel", "Performance Analysis"))
 
 
+
+
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -121,4 +126,17 @@ if __name__ == "__main__":
     ui = Ui_form_admin_panel()
     ui.setupUi(form_admin_panel)
     form_admin_panel.show()
+    sys._excepthook = sys.excepthook
+
+
+    def my_exception_hook(exctype, value, traceback):
+        # Print the error and traceback
+        print(exctype, value, traceback)
+        # Call the normal Exception hook after
+        sys._excepthook(exctype, value, traceback)
+        sys.exit(1)
+
+
+    # Set the exception hook to our wrapping function
+    sys.excepthook = my_exception_hook
     sys.exit(app.exec_())

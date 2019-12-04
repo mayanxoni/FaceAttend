@@ -3,6 +3,8 @@ import hashlib
 import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ErrorMessg import  Ui_Dialog
+from admin_panel import  Ui_form_admin_panel
+
 
 class Ui_form_login(object):
     def setupUi(self, form_login):
@@ -90,6 +92,7 @@ class Ui_form_login(object):
         form_login.setTabOrder(self.line_edit_password, self.button_login)
         form_login.setTabOrder(self.button_login, self.button_signup)
         self.button_login.clicked.connect(self.FunChecking)
+        self.line_edit_password.returnPressed.connect(self.FunChecking)
 
     def retranslateUi(self, form_login):
         _translate = QtCore.QCoreApplication.translate
@@ -130,6 +133,11 @@ class Ui_form_login(object):
                 self.ErrorReport(str("Username or password don't match."))
             elif myresult[0] == "Admin":
                 self.ErrorReport(str("admin account"))
+                self.WinAdmin = QtWidgets.QWidget()
+                self.ui = Ui_form_admin_panel()
+                self.ui.setupUi(self.WinAdmin)
+                form_login.hide()
+                self.WinAdmin.show()
             else:
                 self.ErrorReport(str("Teacher account"))
                     # self.window = QtWidgets.QMainWindow()
