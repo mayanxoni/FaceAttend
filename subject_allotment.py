@@ -207,10 +207,9 @@ class Ui_subject_allotment(object):
             mycursor.execute("select subject1,subject2,subject3,subject4,subject5,subject6,subject7 from subjectteacher where teacherid = '" + str(self.id[ind]) + "'")
             myresult = mycursor.fetchone()
             if myresult is None:
-                # self.ErrorReport(str("New User please alert"))
-                # mycursor.execute("insert into `subjectteacher`(`teacherid`) value(`" + str(self.id[ind]) + "`)")
-                # mydb.commit()
-                pass
+                mycursor.execute("INSERT INTO `subjectteacher`(`teacherid`) VALUES ('" + str(self.id[ind]) + "')")
+                mydb.commit()
+                self.ErrorReport(str("Please select again"))
             else:
                 for row in myresult:
                     if row is not None:
@@ -267,6 +266,9 @@ class Ui_subject_allotment(object):
             cursor.execute("UPDATE `subjectteacher` SET `subject1`=%s,`subject2`=%s,`subject3`=%s,`subject4`=%s,`subject5`=%s,`subject6`=%s,`subject7`=%s WHERE `teacherid`=%s",
                 (items[0], items[1], items[2], items[3], items[4], items[5], items[6], self.tid,))
             connection.commit()
+            self.button_remove.hide()
+            self.button_update.hide()
+            self.button_add.hide()
             print("Record inserted successfully into " + str(self.tid) + "table")
 
         except mysql.connector.Error as error:
