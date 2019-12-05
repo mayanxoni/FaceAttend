@@ -1,7 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from record_attendance import  Ui_form_record_attendance
 
 
 class Ui_form_dashboard(object):
+
+    def __init__(self,UserName):
+        self.UserName = UserName
+
     def setupUi(self, form_dashboard):
         form_dashboard.setObjectName("form_dashboard")
         form_dashboard.resize(720, 480)
@@ -109,6 +114,8 @@ class Ui_form_dashboard(object):
         form_dashboard.setTabOrder(self.button_record, self.button_update)
         form_dashboard.setTabOrder(self.button_update, self.button_register)
         form_dashboard.setTabOrder(self.button_register, self.button_logout)
+        self.button_record.clicked.connect(self.FuncRecordAttandance)
+        self.button_logout.clicked.connect(lambda :self.FuncLogout(form_dashboard))
 
     def retranslateUi(self, form_dashboard):
         _translate = QtCore.QCoreApplication.translate
@@ -124,6 +131,23 @@ class Ui_form_dashboard(object):
         self.button_record.setToolTip(_translate("form_dashboard", "Record Attendance"))
         self.button_record.setText(_translate("form_dashboard", "Record Attendance"))
 
+    def FuncRecordAttandance(self):
+        self.WinRecord = QtWidgets.QWidget()
+        self.ui = Ui_form_record_attendance(self.UserName)
+        self.ui.setupUi(self.WinRecord)
+        self.WinRecord.show()
+
+    # def FuncUpdateAttandance(self,form_dashboard):
+    #     self.WinUpdate = QtWidgets.QWidget()
+    #     self.ui = (self.UserName)
+    #     self.ui.setupUi(self.WinUpdate)
+    #     form_dashboard.close()
+    #     self.WinRecord.show()
+    #     print()
+
+    def FuncLogout(self,form_dashboard):
+        form_dashboard.close()
+
 
 if __name__ == "__main__":
     import sys
@@ -132,4 +156,17 @@ if __name__ == "__main__":
     ui = Ui_form_dashboard()
     ui.setupUi(form_dashboard)
     form_dashboard.show()
+    sys._excepthook = sys.excepthook
+
+
+    def my_exception_hook(exctype, value, traceback):
+        # Print the error and traceback
+        print(exctype, value, traceback)
+        # Call the normal Exception hook after
+        sys._excepthook(exctype, value, traceback)
+        sys.exit(1)
+
+
+    # Set the exception hook to our wrapping function
+    sys.excepthook = my_exception_hook
     sys.exit(app.exec_())
