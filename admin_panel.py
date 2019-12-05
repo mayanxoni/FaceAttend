@@ -6,9 +6,10 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+from performance_analysis import  Ui_performance_analysis
 from PyQt5 import QtCore, QtGui, QtWidgets
 from  subject_allotment import Ui_subject_allotment
+
 
 class Ui_form_admin_panel(object):
     def setupUi(self, form_admin_panel):
@@ -98,8 +99,9 @@ class Ui_form_admin_panel(object):
         QtCore.QMetaObject.connectSlotsByName(form_admin_panel)
         form_admin_panel.setTabOrder(self.button_subject_allotment, self.button_performance_analysis)
         form_admin_panel.setTabOrder(self.button_performance_analysis, self.button_logout)
-        self.button_logout.clicked.connect(self.FuncLogout)
+        self.button_logout.clicked.connect(lambda :self.FuncLogout(form_admin_panel))
         self.button_subject_allotment.clicked.connect(self.FuncSubAllocation)
+        self.button_performance_analysis.clicked.connect(self.FuncPerformance)
 
     def retranslateUi(self, form_admin_panel):
         _translate = QtCore.QCoreApplication.translate
@@ -116,16 +118,26 @@ class Ui_form_admin_panel(object):
         self.button_performance_analysis.setToolTip(_translate("form_admin_panel", "Performance Analysis"))
         self.button_performance_analysis.setText(_translate("form_admin_panel", "Performance Analysis"))
 
-    def FuncLogout(self):
-        self.ob.close()
+    def FuncLogout(self,form_admin_panel):
+        form_admin_panel.close()
+        self.WinLogin = QtWidgets.QMainWindow()
+        self.ui = form_login()
+        self.ui.setupUi(self.WinLogin)
+        self.WinLogin.show()
 
     def FuncSubAllocation(self):
 
         self.WinSubAllot = QtWidgets.QWidget()
         self.ui = Ui_subject_allotment()
         self.ui.setupUi(self.WinSubAllot)
-        self.ob.hide()
         self.WinSubAllot.show()
+
+    def FuncPerformance(self):
+        self.WinPerformance = QtWidgets.QWidget()
+        self.ui = Ui_performance_analysis()
+        self.ui.setupUi(self.WinPerformance)
+        self.WinPerformance.show()
+
 
 
 

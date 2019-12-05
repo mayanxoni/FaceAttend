@@ -229,21 +229,22 @@ class Ui_subject_allotment(object):
             add = self.list_widget_available.selectedItems()
             if not add: return
             for item in add:
-                self.list_widget_available.takeItem(self.list_widget_available.row(item))
-            if self.list_widget_allotted.count() < 7:
-                self.list_widget_allotted.addItem(str(text))
-                self.button_update.show()
-            else:
-                self.ErrorReport(str())
+                if self.list_widget_allotted.count() < 7:
+                    self.list_widget_available.takeItem(self.list_widget_available.row(item))
+                    self.list_widget_allotted.addItem(str(text))
+                    self.button_update.show()
+                else:
+                    self.ErrorReport(str("Can't assign more then 7 subject"))
 
     def FuncRemoveButton(self):
-        if self.list_widget_available.selectedItems():
-            text = self.list_widget_available.currentItem().text()
-            remv = self.list_widget_available.selectedItems()
+        if self.list_widget_allotted.selectedItems():
+            text = self.list_widget_allotted.currentItem().text()
+            remv = self.list_widget_allotted.selectedItems()
             if not  remv: return
             for item in remv:
-                self.list_widget_available.takeItem(self.list_widget_available.row(item))
+                self.list_widget_allotted.takeItem(self.list_widget_allotted.row(item))
             self.list_widget_available.addItem(str(text))
+            self.list_widget_allotted.setFocus()
             self.button_update.show()
 
     def FuncUpdateButton(self):
@@ -269,6 +270,7 @@ class Ui_subject_allotment(object):
             self.button_remove.hide()
             self.button_update.hide()
             self.button_add.hide()
+            self.list_widget_allotted.clear()
             print("Record inserted successfully into " + str(self.tid) + "table")
 
         except mysql.connector.Error as error:
