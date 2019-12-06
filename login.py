@@ -3,11 +3,14 @@ import hashlib
 import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ErrorMessg import  Ui_Dialog
+from signup import Ui_form_signup
+from dashboard import Ui_form_dashboard
 from admin_panel import  Ui_form_admin_panel
 
 
 class Ui_form_login(object):
     def setupUi(self, form_login):
+        self.from_login = form_login
         form_login.setObjectName("form_login")
         form_login.setWindowModality(QtCore.Qt.ApplicationModal)
         form_login.setEnabled(True)
@@ -91,8 +94,9 @@ class Ui_form_login(object):
         form_login.setTabOrder(self.line_edit_username, self.line_edit_password)
         form_login.setTabOrder(self.line_edit_password, self.button_login)
         form_login.setTabOrder(self.button_login, self.button_signup)
-        self.button_login.clicked.connect(self.FunChecking)
-        self.line_edit_password.returnPressed.connect(self.FunChecking)
+        self.button_login.clicked.connect(lambda :self.FunChecking(form_login))
+        self.line_edit_password.returnPressed.connect(lambda :self.FunChecking(form_login))
+        self.button_signup.clicked.connect(self.FuncSignup)
 
     def retranslateUi(self, form_login):
         _translate = QtCore.QCoreApplication.translate
@@ -108,7 +112,7 @@ class Ui_form_login(object):
         self.button_login.setText(_translate("form_login", "Login"))
 
 
-    def FunChecking(self):
+    def FunChecking(self,form_login):
         UserName = self.line_edit_username.text()
         PassWD = self.line_edit_password.text()
         Pass2 = hashlib.sha1(str(PassWD).encode())
@@ -136,20 +140,31 @@ class Ui_form_login(object):
                 self.WinAdmin = QtWidgets.QWidget()
                 self.ui = Ui_form_admin_panel()
                 self.ui.setupUi(self.WinAdmin)
-                form_login.hide()
+                form_login.close()
                 self.WinAdmin.show()
             else:
                 self.ErrorReport(str("Teacher account"))
-                    # self.window = QtWidgets.QMainWindow()
-                    # self.ui = Ui_dash(userName)
-                    # self.ui.setupUi(self.window)
-                    # MainWindow.hide()
-                    # self.window.show()
+                self.WinDash = QtWidgets.QWidget()
+                self.ui = Ui_form_dashboard(UserName)
+                self.ui.setupUi(self.WinDash)
+                form_login.close()
+                self.WinDash.show()
+
         except mysql.connector.Error as e:
             self.ErrorReport(format(e))
             print(e.errno)
             print(e.sqlstate)
             print("Failed to insert into MySQL table {}".format(e))
+
+
+    def FuncSignup(self):
+        self.WinSignup = QtWidgets.QWidget()
+        self.ui = Ui_form_signup()
+        self.ui.setupUi(self.WinSignup)
+        form_login.hide()
+        self.WinSignup.show()
+
+
 
     def ErrorReport(self,message):
         messageBox = QtWidgets.QMessageBox()
