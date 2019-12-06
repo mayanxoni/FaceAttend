@@ -1,5 +1,6 @@
 # from dashboard import Ui_form_dashboard
 from PyQt5 import QtCore, QtGui, QtWidgets
+from  manual_attendance import Ui_manual_attendance
 import  mysql.connector
 
 from ErrorMessg import Ui_Dialog
@@ -148,8 +149,12 @@ class Ui_form_record_attendance(object):
                 self.ErrorReport(str("you must select correct subject!"))
             else:
                 for row in myresult:
-                    sem = row
-                    print(sem)
+                    semester = row
+                    print(semester)
+                    self.WinManual = QtWidgets.QMainWindow()
+                    self.ui = Ui_manual_attendance(self.UserName,self.comboBox.currentText(),semester)
+                    self.ui.setupUi(self.WinManual)
+                    self.WinManual.show()
         except mysql.connector.Error as e:
             print(format(e))
 
