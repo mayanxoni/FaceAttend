@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
+from dashboard import Ui_form_dashboard
 
 
 def assure_path_exists(path):
@@ -58,11 +59,12 @@ class datasetCreator(object):
         QtCore.QMetaObject.connectSlotsByName(form_dataset_creator)
 
         assure_path_exists('dataset/')
-        self.timer.timeout.connect(self.viewCam)
-        self.button_capture.clicked.connect(self.controlTimer)
+        # self.timer.timeout.connect(self.viewCam)
+        self.button_capture.clicked.connect(self.viewCam)
 
         try:
-            self.connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
+            self.connection = mysql.connector.connect(host="localhost", user="root", passwd="",
+                                                      database="collegeattend")
             self.db_cursor = self.connection.cursor()
             self.db_cursor.execute("SELECT s_enroll FROM studentdetails")
             self.query_result = self.db_cursor.fetchall()
@@ -77,12 +79,13 @@ class datasetCreator(object):
             messageBox.setIcon(QMessageBox.Critical)
 
     def viewCam(self):
-        if self.image_version < 50:
-            self.db_cursor.execute("SELECT s_roll FROM studentdetails WHERE s_enroll = " + (str(self.comboBox.currentText())))
-            self.query_result1 = self.db_cursor.fetchall()
-            for row1 in self.query_result1:
-                print(str(row1[0]))
-                self.s_name = str(row1[0])
+        self.db_cursor.execute(
+            "SELECT s_roll FROM studentdetails WHERE s_enroll = " + (str(self.comboBox.currentText())))
+        self.query_result1 = self.db_cursor.fetchall()
+        for row1 in self.query_result1:
+            print(str(row1[0]))
+            self.name = str(row1[0])
+        while True:
             ret, image = self.video_feed.read()
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             height, width, channel = image.shape
@@ -90,20 +93,71 @@ class datasetCreator(object):
             qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
             self.label_camera_feed.setPixmap(QPixmap.fromImage(qImg))
             faces = self.image_classifier.detectMultiScale(gray_image, 1.3, 5)
+            print(faces, 'faces')
             for (x, y, w, h) in faces:
-                print(str(self.s_name) + " " + str(self.image_version))
+                print(str(self.name) + " " + str(self.image_version))
                 cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
-                cv2.imwrite("dataset/" + str(self.s_name) + "." + str(self.image_version) + ".jpg", gray_image[y:y + h, x:x + w])
+                cv2.imwrite("dataset/" + str(self.name) + "." + str(self.image_version) + ".jpg",
+                            gray_image[y:y + h, x:x + w])
                 self.image_version = self.image_version + 1
-        else:
-            self.label_camera_feed.setText("Dataset creation is complete. Please go back to take attendance.")
-            self.video_feed.release()
-            self.button_capture.setText("Go back to dashboard!")
-            self.button_capture.show()
-            self.button_capture.clicked.connect(self.backToDashboard)
+            if self.image_version is 5:
+                self.video_feed.release()
+                self.label_camera_feed.setText("Dataset creation is complete. Please go back to take attendance.")
+                self.button_capture.setText("Go back to dashboard!")
+                self.button_capture.show()
+                break
+            print(self.image_version)
 
-    def backToDashboard(self):
+            # self.button_capture.setText("Go back to dashboard!")
+            # self.button_capture.show()
+            # self.button_capture.isDown()
+            # self.button_capture.clicked.connect(self.backToDashboard)
 
+            # grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # faces = self.image_classifier.detectMultiScale(grayscale_image, 1.3, 5)
+            # for (x, y, w, h) in faces:
+            #     cv2.imwrite("dataset/" + str(self.name) + "." + str(self.image_version) + ".jpg",
+            #                 gray_image[y:y + h, x:x + w])
+            #     cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            #     image_version = image_version + 1
+            #     cv2.waitKey(100)
+            # cv2.imshow("Face", image)
+            # cv2.waitKey(1)
+            # if image_version > 50:
+            #     break
+
+        """"WORKING"""
+        # self.db_cursor.execute(
+        #     "SELECT s_roll FROM studentdetails WHERE s_enroll = " + (str(self.comboBox.currentText())))
+        # self.query_result1 = self.db_cursor.fetchall()
+        # for row1 in self.query_result1:
+        #     print(str(row1[0]))
+        #     self.name = str(row1[0])
+        # if self.image_version < 50:
+        #     ret, image = self.video_feed.read()
+        #     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        #     height, width, channel = image.shape
+        #     step = channel * width
+        #     qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
+        #     self.label_camera_feed.setPixmap(QPixmap.fromImage(qImg))
+        #     faces = self.image_classifier.detectMultiScale(gray_image, 1.3, 5)
+        #     print(faces, 'faces')
+        #     for (x, y, w, h) in faces:
+        #         print(str(self.name) + " " + str(self.image_version))
+        #         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        #         cv2.imwrite("dataset/" + str(self.name) + "." + str(self.image_version) + ".jpg",
+        #                     gray_image[y:y + h, x:x + w])
+        #         self.image_version = self.image_version + 1
+        # else:
+        #     self.label_camera_feed.setText("Dataset creation is complete. Please go back to take attendance.")
+        #     self.video_feed.release()
+        #     self.button_capture.setText("Go back to dashboard!")
+        #     self.button_capture.show()
+        #     self.button_capture.isDown()
+        #     self.button_capture.clicked.connect(self.backToDashboard)
+        # print(self.image_version)
+
+    # def backToDashboard(self):
 
     def controlTimer(self):
         if not self.timer.isActive():
@@ -118,7 +172,8 @@ class datasetCreator(object):
 
     def retranslateUi(self, form_dataset_creator):
         _translate = QtCore.QCoreApplication.translate
-        self.label_camera_feed.setText(_translate("form_dataset_creator", "To start live camera feed, click \"Capture\" button.\nClose the window when you're done training the model."))
+        self.label_camera_feed.setText(_translate("form_dataset_creator",
+                                                  "To start live camera feed, click \"Capture\" button.\nClose the window when you're done training the model."))
         self.button_capture.setText(_translate("form_dataset_creator", "Capture"))
 
 
