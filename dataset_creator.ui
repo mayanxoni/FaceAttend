@@ -14,7 +14,7 @@
    <string>Camera Feed</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="q.qrc">
+   <iconset>
     <normaloff>:/newPrefix/FaceAttend.png</normaloff>:/newPrefix/FaceAttend.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
@@ -97,6 +97,13 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_dashboard">
+       <property name="text">
+        <string>Go to Dashboard</string>
        </property>
       </widget>
      </item>
