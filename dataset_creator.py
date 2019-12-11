@@ -125,5 +125,4 @@ if __name__ == '__main__':
     dataset_creator = datasetCreator()
     dataset_creator.setupUi(dataset)
     dataset.show()
-
     sys.exit(app.exec_())
