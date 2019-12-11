@@ -111,11 +111,13 @@ class datasetCreator(object):
 
         for row1 in self.query_result1:
             self.s_roll = str(row1[0])
-        faces = self.image_classifier.detectMultiScale(self.image, 1.3, 5)
-        for (x, y, w, h) in faces:
+
+        self.faces = self.image_classifier.detectMultiScale(self.image, 1.3, 5)
+        self.gray_image = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+        for (x, y, w, h) in self.faces:
             print(str(self.s_roll) + " " + str(self.image_version))
             cv2.rectangle(self.image, (x, y), (x + w, y + h), (255, 0, 0), 2)
-            cv2.imwrite("dataset/" + str(self.s_roll) + "." + str(self.image_version) + ".jpg", self.image[y:y + h, x:x + w])
+            cv2.imwrite("dataset/" + str(self.s_roll) + "." + str(self.image_version) + ".jpg", self.gray_image[y:y + h, x:x + w])
             self.image_version = self.image_version + 1
 
 
