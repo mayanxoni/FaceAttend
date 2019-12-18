@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>905</width>
-    <height>480</height>
+    <width>720</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,14 +60,20 @@
     <layout class="QGridLayout" name="grid_layout_2">
      <item row="0" column="4">
       <layout class="QVBoxLayout" name="vertical_layout_3">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_3">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_3">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -77,7 +83,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>TextLabel</string>
@@ -88,14 +94,20 @@
      </item>
      <item row="2" column="4">
       <layout class="QVBoxLayout" name="vertical_layout_8">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_8">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_8">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -105,7 +117,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_8">
          <property name="text">
           <string>TextLabel</string>
@@ -116,14 +128,20 @@
      </item>
      <item row="0" column="2">
       <layout class="QVBoxLayout" name="vertical_layout_2">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_2">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_2">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -133,7 +151,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>TextLabel</string>
@@ -144,14 +162,20 @@
      </item>
      <item row="2" column="2">
       <layout class="QVBoxLayout" name="vertical_layout_7">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_7">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_7">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -161,7 +185,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_7">
          <property name="text">
           <string>TextLabel</string>
@@ -172,14 +196,23 @@
      </item>
      <item row="0" column="0">
       <layout class="QVBoxLayout" name="vertical_layout_1">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_1">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_1">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -189,7 +222,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_1">
          <property name="text">
           <string>TextLabel</string>
@@ -200,14 +233,20 @@
      </item>
      <item row="0" column="8">
       <layout class="QVBoxLayout" name="vertical_layout_5">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_5">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_5">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -217,7 +256,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_5">
          <property name="text">
           <string>TextLabel</string>
@@ -242,14 +281,20 @@
      </item>
      <item row="2" column="8">
       <layout class="QVBoxLayout" name="vertical_layout_10">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_10">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_10">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -259,7 +304,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_10">
          <property name="text">
           <string>TextLabel</string>
@@ -270,14 +315,20 @@
      </item>
      <item row="0" column="6">
       <layout class="QVBoxLayout" name="vertical_layout_4">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_4">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_4">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -287,7 +338,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_4">
          <property name="text">
           <string>TextLabel</string>
@@ -305,14 +356,20 @@
      </item>
      <item row="2" column="6">
       <layout class="QVBoxLayout" name="vertical_layout_9">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_9">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_9">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -322,7 +379,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_9">
          <property name="text">
           <string>TextLabel</string>
@@ -340,14 +397,23 @@
      </item>
      <item row="2" column="0">
       <layout class="QVBoxLayout" name="vertical_layout_6">
-       <item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_picture_6">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/user.png</pixmap>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QCheckBox" name="checkbox_6">
          <property name="text">
           <string>CheckBox</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>assets/user.png</normaloff>assets/user.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -357,7 +423,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_6">
          <property name="text">
           <string>TextLabel</string>

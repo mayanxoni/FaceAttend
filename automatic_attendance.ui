@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>form_camera_feed</class>
+ <widget class="QWidget" name="form_camera_feed">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Camera Feed</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/newPrefix/FaceAttend.png</normaloff>:/newPrefix/FaceAttend.png</iconset>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QVBoxLayout" name="layout_vertical">
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label_image">
+       <property name="text">
+        <string>To start live camera feed, click &quot;Capture&quot; button.</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_dashboard">
+       <property name="text">
+        <string>Go to Dashboard</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_capture">
+       <property name="text">
+        <string>Capture</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="q.qrc"/>
+ </resources>
+ <connections/>
+</ui>
