@@ -1,15 +1,18 @@
 # from dashboard import Ui_form_dashboard
+import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
-from  manual_attendance import Ui_manual_attendance
-import  mysql.connector
 
 from ErrorMessg import Ui_Dialog
+from automatic_attendance import automaticAttendance
+from manual_attendance import Ui_manual_attendance
 
 
 class Ui_form_record_attendance(object):
-    def __init__(self,UserName):
+
+    def __init__(self, UserName):
         # self.dash = Ui_form_dashboard()
-        self.UserName =  UserName
+        self.UserName = UserName
+
     def setupUi(self, form_record_attendance):
         form_record_attendance.setObjectName("form_record_attendance")
         form_record_attendance.resize(720, 480)
@@ -93,24 +96,23 @@ class Ui_form_record_attendance(object):
         self.label_placeholder_1.raise_()
         self.label_placeholder_2.raise_()
 
-        self.retranslateUi(form_record_attendance)
+        form_record_attendance.setWindowTitle("Record Attendance")
+        self.label_record_attendance.setText(
+            "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600; color:#888a85;\">RECORD ATTENDANCE</span></p></body></html>")
+        self.label_placeholder_1.setText("Select the subject for which you wish to record attendance:")
+        self.label_placeholder_2.setText("Select the mode of attendance you prefer:")
+        self.button_take_manual.setToolTip("Subject Allotment")
+        self.button_take_manual.setText("Manual Attendance")
+        self.button_take_auto.setToolTip("Performance Analysis")
+        self.button_take_auto.setText("Automatic Attendance")
+
         self.FuncLoadSub()
         QtCore.QMetaObject.connectSlotsByName(form_record_attendance)
         form_record_attendance.setTabOrder(self.button_take_manual, self.button_take_auto)
-        self.button_back.clicked.connect(lambda :self.FuncBack(form_record_attendance))
-        self.button_take_manual.clicked.connect(self.FuncSelectedSub)
-
-
-    def retranslateUi(self, form_record_attendance):
-        _translate = QtCore.QCoreApplication.translate
-        form_record_attendance.setWindowTitle(_translate("form_record_attendance", "Record Attendance"))
-        self.label_record_attendance.setText(_translate("form_record_attendance", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600; color:#888a85;\">RECORD ATTENDANCE</span></p></body></html>"))
-        self.label_placeholder_1.setText(_translate("form_record_attendance", "Select the subject for which you wish to record attendance:"))
-        self.label_placeholder_2.setText(_translate("form_record_attendance", "Select the mode of attendance you prefer:"))
-        self.button_take_manual.setToolTip(_translate("form_record_attendance", "Subject Allotment"))
-        self.button_take_manual.setText(_translate("form_record_attendance", "Manual Attendance"))
-        self.button_take_auto.setToolTip(_translate("form_record_attendance", "Performance Analysis"))
-        self.button_take_auto.setText(_translate("form_record_attendance", "Automatic Attendance"))
+        self.button_back.clicked.connect(lambda: self.FuncBack(form_record_attendance))
+        self.FuncSelectedSub()
+        self.button_take_manual.clicked.connect(self.manual_attendance)
+        self.button_take_auto.clicked.connect(self.automatic_attendance)
 
     def FuncLoadSub(self):
         try:
@@ -135,31 +137,44 @@ class Ui_form_record_attendance(object):
 
     def FuncSelectedSub(self):
         try:
-            mydb = mysql.connector.connect(
+            self.mydb = mysql.connector.connect(
                 host="localhost",
                 user="root",
                 database="collegeattend",
                 passwd=""
             )
-            mycursor = mydb.cursor()
-            mycursor.execute("""SELECT semestername FROM collgdatatable WHERE %s IN(subject1,subject2,
+            self.mycursor = self.mydb.cursor()
+            self.mycursor.execute("""SELECT semestername FROM collgdatatable WHERE %s IN(subject1,subject2,
                             subject3,subject4,subject5,subject6,subject7)""", (self.comboBox.currentText(),))
-            myresult = mycursor.fetchone()
-            if myresult is None:
-                self.ErrorReport(str("you must select correct subject!"))
-            else:
-                for row in myresult:
-                    semester = row
-                    print(semester)
-                    self.WinManual = QtWidgets.QWidget()
-                    self.ui = Ui_manual_attendance(self.UserName,self.comboBox.currentText(),semester)
-                    self.ui.setupUi(self.WinManual)
-                    self.WinManual.show()
+            self.myresult = self.mycursor.fetchone()
         except mysql.connector.Error as e:
             print(format(e))
 
+    def manual_attendance(self):
+        if self.myresult is None:
+            self.ErrorReport(str("you must select correct subject!"))
+        else:
+            for self.row in self.myresult:
+                self.semester = self.row
+                print(self.semester)
+                self.WinManual = QtWidgets.QWidget()
+                self.ui = Ui_manual_attendance(self.UserName, self.comboBox.currentText(), self.semester)
+                self.ui.setupUi(self.WinManual)
+                self.WinManual.show()
 
-    def FuncBack(self,form_record_attendance):
+    def automatic_attendance(self):
+        if self.myresult is None:
+            self.ErrorReport(str("you must select correct subject!"))
+        else:
+            for self.row in self.myresult:
+                self.semester = self.row
+                print(self.semester)
+                self.win_auto = QtWidgets.QWidget()
+                self.ui = automaticAttendance(self.UserName, self.comboBox.currentText(), self.semester)
+                self.ui.setupUi(self.win_auto)
+                self.win_auto.show()
+
+    def FuncBack(self, form_record_attendance):
         print("button hit")
         # self.WinDash = QtWidgets.QWidget()
         # self.ui = Ui_form_dashboard(self.UserName)
@@ -169,14 +184,15 @@ class Ui_form_record_attendance(object):
 
         # self.WinDash.show()
 
-
-    def ErrorReport(self,message):
+    def ErrorReport(self, message):
         messageBox = QtWidgets.QMessageBox()
         ui = Ui_Dialog(message)
         ui.setupUi(messageBox)
 
+
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     form_record_attendance = QtWidgets.QWidget()
     ui = Ui_form_record_attendance()
