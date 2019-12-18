@@ -65,6 +65,7 @@ class automaticAttendance(object):
         step = channel * width
         q_img = QImage(self.image.data, width, height, step, QImage.Format_RGB888)
         self.label_image.setPixmap(QPixmap.fromImage(q_img))
+        # self.main_logic()
 
     def controlTimer(self):
         if not self.timer.isActive():
@@ -78,7 +79,20 @@ class automaticAttendance(object):
             self.button_dashboard.show()
             self.button_capture.hide()
 
-    def fetch_details(self):
+    def main_logic(self):
+        self.video_feed = cv2.VideoCapture(0)
+        self.font = cv2.FONT_HERSHEY_SIMPLEX
+        self.faces = faceCascade.detectMultiScale()
+        for (x, y, w, h) in self.faces:
+            student_id, self.confidence = self.recognizer.predict(self.gray_image[y:y + h, x:x + w])
+            cv2.rectangle(self.image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            print(str(student_id))
+            profile = self.fetch_details(student_id)
+            if profile is not None:
+                cv2.putText(self.image, profile, (x, y + h + 30), self.font, 1, (0, 0, 255), 3)
+                cv2.putText(self.image, "Accuracy: {0:.2f}%".format(round(100 - self.confidence, 2)), (x, y + h + 60), self.font, 1, (0, 0, 255), 3)
+
+    def fetch_details(self, student_id):
         pass
 
 

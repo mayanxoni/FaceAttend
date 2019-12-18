@@ -19,6 +19,7 @@ faceCascade = cv2.CascadeClassifier(classifier_path)
 
 def get_profile(s_roll):
     try:
+        # connection = mysql.connector.connect(host="remotemysql.com", user="QFXScvqy83", passwd="M0XDbV1MvD", database="QFXScvqy83")
         connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
         db_cursor = connection.cursor()
         print(str(s_roll))
