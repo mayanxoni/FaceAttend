@@ -12,6 +12,8 @@ from  subject_allotment import Ui_subject_allotment
 
 
 class Ui_form_admin_panel(object):
+    def __init__(self,form):
+        self.form = form
     def setupUi(self, form_admin_panel):
         self.ob = form_admin_panel
         form_admin_panel.setObjectName("form_admin_panel")
@@ -120,10 +122,11 @@ class Ui_form_admin_panel(object):
 
     def FuncLogout(self,form_admin_panel):
         form_admin_panel.close()
-        self.WinLogin = QtWidgets.QMainWindow()
-        self.ui = form_login()
-        self.ui.setupUi(self.WinLogin)
-        self.WinLogin.show()
+        self.form.show()
+        # self.WinLogin = QtWidgets.QMainWindow()
+        # self.ui = form_login()
+        # self.ui.setupUi(self.WinLogin)
+        # self.WinLogin.show()
 
     def FuncSubAllocation(self):
 

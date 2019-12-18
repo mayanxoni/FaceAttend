@@ -151,7 +151,7 @@ class Ui_form_record_attendance(object):
                 for row in myresult:
                     semester = row
                     print(semester)
-                    self.WinManual = QtWidgets.QMainWindow()
+                    self.WinManual = QtWidgets.QWidget()
                     self.ui = Ui_manual_attendance(self.UserName,self.comboBox.currentText(),semester)
                     self.ui.setupUi(self.WinManual)
                     self.WinManual.show()

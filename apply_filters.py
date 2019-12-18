@@ -1,7 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import  mysql.connector
+
+from update_attendance import Ui_Update_Attendance
 
 
 class Ui_apply_filters(object):
+    def __init__(self,UserName):
+        self.UserName = UserName
+        self.combo_box_date = QtWidgets.QComboBox()
+        self.combo_box_subject = QtWidgets.QComboBox()
+        
     def setupUi(self, apply_filters):
         apply_filters.setObjectName("apply_filters")
         apply_filters.resize(720, 480)
@@ -80,6 +88,10 @@ class Ui_apply_filters(object):
         self.grid_layout.addWidget(self.label_spacer_top, 1, 1, 1, 1)
 
         self.retranslateUi(apply_filters)
+        self.FuncUpdateSubject()
+        self.button_back.clicked.connect(lambda :self.FuncBack(apply_filters))
+        self.combo_box_subject.currentTextChanged.connect(self.FuncDateUpdate)
+        self.button_select.clicked.connect(self.FuncButtonUpdate)
         QtCore.QMetaObject.connectSlotsByName(apply_filters)
         apply_filters.setTabOrder(self.button_select, self.button_back)
 
@@ -91,6 +103,81 @@ class Ui_apply_filters(object):
         self.label_subject.setText(_translate("apply_filters", "Subject:"))
         self.label_date.setText(_translate("apply_filters", "Date:"))
 
+    def FuncUpdateSubject(self):
+        try:
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                database="collegeattend",
+                passwd=""
+            )
+            mycursor = mydb.cursor()
+            mycursor.execute("""SELECT * FROM subjectteacher where teacherid = %s""", (self.UserName,))
+            myresult = mycursor.fetchone()
+            if myresult is None:
+                print("error")
+            else:
+                for row in myresult:
+                    if row != self.UserName:
+                        if row:
+                            self.combo_box_subject.addItem(row)
+        except mysql.connector.Error as er:
+            print(er)
+
+
+    def FuncDateUpdate(self,newValue):
+        print(newValue)
+        self.newValue = newValue
+        try:
+            connection  = mysql.connector.connect(
+                host="localhost",
+                database="collegeattend",
+                user="root",
+                passwd=""
+            )
+            cursor = connection.cursor()
+            sql = "SELECT classdate FROM `"+str(newValue)+"` ORDER BY classdate ASC"
+            print(sql)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if result is None:
+                print("error")
+            else:
+                self.combo_box_date.clear()
+                for i in result:
+                    print(i[0])
+                    self.combo_box_date.addItem(str(i[0]))
+        except mysql.connector.Error as er:
+            print(er)
+
+    def FuncButtonUpdate(self):
+        ClassDate = self.combo_box_date.currentText()
+        print(str(ClassDate))
+        try:
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                passwd=""
+            )
+            mycursor = mydb.cursor()
+            mycursor.execute("""SELECT semestername FROM collegeattend.collgdatatable WHERE %s IN(subject1,subject2,
+                            subject3,subject4,subject5,subject6,subject7)""", (self.newValue,))
+            myresult = mycursor.fetchone()
+            if myresult is None:
+                print("error")
+            else:
+                for row in myresult:
+                    Semester = row
+        except mysql.connector.Error as er:
+            print(er)
+        self.WinUpdateAttend = QtWidgets.QWidget()
+        self.ui = Ui_Update_Attendance(self.UserName, Semester, self.newValue,ClassDate,)
+        self.ui.setupUi(self.WinUpdateAttend)
+        self.WinUpdateAttend.show()
+
+    def FuncBack(self,apply_filters):
+        apply_filters.close()
+
 
 if __name__ == "__main__":
     import sys
@@ -99,4 +186,17 @@ if __name__ == "__main__":
     ui = Ui_apply_filters()
     ui.setupUi(apply_filters)
     apply_filters.show()
+    sys._excepthook = sys.excepthook
+
+
+    def my_exception_hook(exctype, value, traceback):
+        # Print the error and traceback
+        print(exctype, value, traceback)
+        # Call the normal Exception hook after
+        sys._excepthook(exctype, value, traceback)
+        sys.exit(1)
+
+
+    # Set the exception hook to our wrapping function
+    sys.excepthook = my_exception_hook
     sys.exit(app.exec_())

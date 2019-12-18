@@ -1,16 +1,16 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'manual_attendance.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.2
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+import mysql.connector
+from datetime import date
+from PyQt5.QtGui import QPixmap
+from ErrorMessg import Ui_Dialog
 
 
 class Ui_manual_attendance(object):
+    def __init__(self, UserName, Subject, Semester):
+            self.UserName = UserName
+            self.Subject = Subject
+            self.Semester = Semester
+						
     def setupUi(self, manual_attendance):
         manual_attendance.setObjectName("manual_attendance")
         manual_attendance.resize(720, 500)
@@ -278,6 +278,22 @@ class Ui_manual_attendance(object):
         self.grid_layout.addWidget(self.label_placeholder, 9, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
 
         self.retranslateUi(manual_attendance)
+
+        self.funcHide()
+        self.FuncloadData()
+        self.cb[0].stateChanged.connect(lambda: self.FuncChecking(0))
+        self.cb[1].stateChanged.connect(lambda: self.FuncChecking(1))
+        self.cb[2].stateChanged.connect(lambda: self.FuncChecking(2))
+        self.cb[3].stateChanged.connect(lambda: self.FuncChecking(3))
+        self.cb[4].stateChanged.connect(lambda: self.FuncChecking(4))
+        self.cb[5].stateChanged.connect(lambda: self.FuncChecking(5))
+        self.cb[6].stateChanged.connect(lambda: self.FuncChecking(6))
+        self.cb[7].stateChanged.connect(lambda: self.FuncChecking(7))
+        self.cb[8].stateChanged.connect(lambda: self.FuncChecking(8))
+        self.cb[9].stateChanged.connect(lambda: self.FuncChecking(9))
+        self.button_back.clicked.connect(lambda :self.FuncBack(manual_attendance))
+        self.button_update.clicked.connect(lambda :self.FuncTakeAttend(manual_attendance))
+
         QtCore.QMetaObject.connectSlotsByName(manual_attendance)
         manual_attendance.setTabOrder(self.checkbox_1, self.checkbox_2)
         manual_attendance.setTabOrder(self.checkbox_2, self.checkbox_3)
@@ -295,28 +311,114 @@ class Ui_manual_attendance(object):
         _translate = QtCore.QCoreApplication.translate
         manual_attendance.setWindowTitle(_translate("manual_attendance", "Manual Attendance"))
         self.label_manual_attendance.setText(_translate("manual_attendance", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600; color:#888a85;\">MANUAL ATTENDANCE</span></p></body></html>"))
-        self.checkbox_3.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_3.setText(_translate("manual_attendance", "Roll No: 3"))
         self.label_3.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_8.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_8.setText(_translate("manual_attendance", "Roll No: 8"))
         self.label_8.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_2.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_2.setText(_translate("manual_attendance", "Roll No: 2"))
         self.label_2.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_7.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_7.setText(_translate("manual_attendance", "Roll No: 7"))
         self.label_7.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_1.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_1.setText(_translate("manual_attendance", "Roll No: 1"))
         self.label_1.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_5.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_5.setText(_translate("manual_attendance", "Roll No: 5"))
         self.label_5.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_10.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_10.setText(_translate("manual_attendance", "Roll No: 10"))
         self.label_10.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_4.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_4.setText(_translate("manual_attendance", "Roll No: 4"))
         self.label_4.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_9.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_9.setText(_translate("manual_attendance", "Roll No: 9"))
         self.label_9.setText(_translate("manual_attendance", "TextLabel"))
-        self.checkbox_6.setText(_translate("manual_attendance", "CheckBox"))
+        self.checkbox_6.setText(_translate("manual_attendance","Roll No: 6"))
         self.label_6.setText(_translate("manual_attendance", "TextLabel"))
         self.label_placeholder.setText(_translate("manual_attendance", "Check or uncheck the boxes to change the status of the attendance record of the student:"))
 
+        self.cb = [self.checkbox_1, self.checkbox_2, self.checkbox_3, self.checkbox_4, self.checkbox_5, self.checkbox_6,
+                   self.checkbox_7, self.checkbox_8, self.checkbox_9, self.checkbox_10]
+        self.rollarr = [self.label_1,self.label_2, self.label_3, self.label_4, self.label_5, self.label_6,self.label_7, self.label_8,self.label_9,self.label_10]
+        self.attendance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    def funcHide(self):
+        for i in range(10):
+            self.cb[i].hide()
+            self.rollarr[i].hide()
+
+    def FuncloadData(self):
+        try:
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                database="collegeattend",
+                passwd=""
+            )
+            mycursor = mydb.cursor()
+            mycursor.execute("""SELECT rollnum,name,pic FROM studentdetails WHERE  semester = %s order by rollnum""",(self.Semester,))
+            myresult = mycursor.fetchall()
+            if myresult is None:
+                self.ErrorReport(str("No Students in this semester"))
+            else:
+                i = 0
+                pixmap1 = []
+                namearr = []
+                for row in myresult:
+                    pixmap1.append(QPixmap("pic/"+row[2]))
+                    self.icon4 = QtGui.QIcon()
+                    self.icon4.addPixmap(pixmap1[i], QtGui.QIcon.Normal, QtGui.QIcon.Off)
+                    self.cb[i].setIcon(self.icon4)
+                    rn = row[0]
+                    nm = row[1]
+                    namearr.append(rn+'. '+nm)
+                    print(namearr[i])
+                    self.rollarr[i].setText(namearr[i])
+                    self.cb[i].show()
+                    self.rollarr[i].show()
+                    i = i + 1
+        except mysql.connector.Error as err:
+            self.ErrorReport(format(err))
+
+
+    def FuncChecking(self,x):
+            if  self.cb[x].isChecked() == True:
+                self.cb[x].setText("Is Present")
+                self.cb[x].setStyleSheet("color: Green")
+                self.attendance[x] = 1
+            else:
+                self.cb[x].setText("Is Absent")
+                self.cb[x].setStyleSheet("color: red")
+                self.attendance[x] = 0
+
+    def FuncTakeAttend(self,manual_attendance):
+        today = date.today()
+        self.attendance[10] = today
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                 database='collegeattend',
+                                                 user='root',
+                                                 password='')
+            cursor = connection.cursor()
+            string = "(`1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `classdate`)"
+            tab = "`" + str(self.Subject) + "`" + string
+            cursor.execute("INSERT INTO "+ str(tab) +" VALUES (%s, %s, %s, %s,%s, %s, %s, %s,%s, %s, %s)",(self.attendance[0],self.attendance[1],self.attendance[2],self.attendance[3],self.attendance[4],self.attendance[5],self.attendance[6],self.attendance[7],self.attendance[8],self.attendance[9],self.attendance[10],))
+            connection.commit()
+            manual_attendance.close()
+            print("Record inserted successfully into "+ str(tab) + "table")
+        except mysql.connector.Error as error:
+            self.ErrorReport(format(error))
+        finally:
+            if (connection.is_connected()):
+                cursor.close()
+                connection.close()
+                print("MySQL connection is closed")
+
+    def FuncBack(self,manual_attendance):
+        manual_attendance.close()
+
+
+    def ErrorReport(self,message):
+        messageBox = QtWidgets.QMessageBox()
+        ui = Ui_Dialog(message)
+        ui.setupUi(messageBox)
+				
 
 if __name__ == "__main__":
     import sys
