@@ -202,7 +202,7 @@ class Ui_performance_analysis(object):
                     mycursor.execute("SELECT * FROM studentdetails where enrollement = "+str(self.line_edit_enrollment.text()))
                     myresult = mycursor.fetchone()
                     if myresult is None:
-                        self.ErrorReport()
+                        self.ErrorReport(str("No Student with this details persent here."))
                     else:
                         self.RollNUM = myresult[0]
                         self.ListSEM = myresult[5]
@@ -215,7 +215,7 @@ class Ui_performance_analysis(object):
                     print(e.sqlstate)
                     print("Error from Def Student Enoll".format(e))
             else:
-                self.ErrorReport()
+                self.ErrorReport(str(""))
 
 
 

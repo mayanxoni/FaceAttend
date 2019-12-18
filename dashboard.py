@@ -1,10 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from record_attendance import  Ui_form_record_attendance
-
+from apply_filters import  Ui_apply_filters
 
 class Ui_form_dashboard(object):
 
-    def __init__(self,UserName):
+    def __init__(self,UserName,form):
+        self.form = form
         self.UserName = UserName
 
     def setupUi(self, form_dashboard):
@@ -116,6 +117,7 @@ class Ui_form_dashboard(object):
         form_dashboard.setTabOrder(self.button_register, self.button_logout)
         self.button_record.clicked.connect(self.FuncRecordAttandance)
         self.button_logout.clicked.connect(lambda :self.FuncLogout(form_dashboard))
+        self.button_update.clicked.connect(self.FuncUpdateAttandance)
 
     def retranslateUi(self, form_dashboard):
         _translate = QtCore.QCoreApplication.translate
@@ -137,16 +139,15 @@ class Ui_form_dashboard(object):
         self.ui.setupUi(self.WinRecord)
         self.WinRecord.show()
 
-    # def FuncUpdateAttandance(self,form_dashboard):
-    #     self.WinUpdate = QtWidgets.QWidget()
-    #     self.ui = (self.UserName)
-    #     self.ui.setupUi(self.WinUpdate)
-    #     form_dashboard.close()
-    #     self.WinRecord.show()
-    #     print()
+    def FuncUpdateAttandance(self):
+        self.WinUpdate = QtWidgets.QWidget()
+        self.ui = Ui_apply_filters(self.UserName)
+        self.ui.setupUi(self.WinUpdate)
+        self.WinUpdate.show()
 
     def FuncLogout(self,form_dashboard):
         form_dashboard.close()
+        self.form.show()
 
 
 if __name__ == "__main__":

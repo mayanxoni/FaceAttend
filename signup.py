@@ -3,12 +3,14 @@ import hashlib
 import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 from ErrorMessg import Ui_Dialog
 
 
 class Ui_form_signup(object):
-    def __init__(self):
-        super().__init__()
+    def __init__(self,form):
+        self.form = form
+
     def setupUi(self, form_signup):
         form_signup.setObjectName("form_signup")
         form_signup.resize(380, 430)
@@ -79,6 +81,9 @@ class Ui_form_signup(object):
         self.line_edit_fullname.setObjectName("line_edit_fullname")
         self.gridLayout_3.addWidget(self.line_edit_fullname, 3, 0, 1, 1)
 
+
+
+
         self.retranslateUi(form_signup)
         QtCore.QMetaObject.connectSlotsByName(form_signup)
         form_signup.setTabOrder(self.line_edit_fullname, self.line_edit_contact_number)
@@ -87,6 +92,7 @@ class Ui_form_signup(object):
         form_signup.setTabOrder(self.line_edit_password, self.line_edit_cpassword)
         form_signup.setTabOrder(self.line_edit_cpassword, self.button_signup)
         self.button_signup.clicked.connect(self.SignUpDetails)
+
 
     def retranslateUi(self, form_signup):
         _translate = QtCore.QCoreApplication.translate
@@ -97,6 +103,15 @@ class Ui_form_signup(object):
         self.line_edit_username.setPlaceholderText(_translate("form_signup", "Username"))
         self.line_edit_contact_number.setPlaceholderText(_translate("form_signup", "Contact Number"))
         self.line_edit_fullname.setPlaceholderText(_translate("form_signup", "Full Name"))
+
+    def closeEvent(self, event):
+        reply = QtGui.QMessageBox.question(self, 'Message', "Are you sure to quit?", QtGui.QMessageBox.Yes,
+                                           QtGui.QMessageBox.No)
+        if reply == QtGui.QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
 
     def SignUpDetails(self):
 
@@ -121,6 +136,8 @@ class Ui_form_signup(object):
                                              (self.line_edit_username.text(), spass, self.line_edit_fullname.text(), self.line_edit_contact_number.text()))
                             mydb.commit()
                             form_signup.close()
+                            self.form.show()
+                            # app = QtWidgets.QApplication(sys.argv)
                             # super.WinLogin = QtWidgets.QMainWindow()
                             # self.ui =  Ui_form_login()
                             # self.ui.setupUi(self.WinLogin)
@@ -144,6 +161,9 @@ class Ui_form_signup(object):
          messageBox = QtWidgets.QMessageBox()
          ui = Ui_Dialog(message)
          ui.setupUi(messageBox)
+
+
+
 
 
 if __name__ == "__main__":
