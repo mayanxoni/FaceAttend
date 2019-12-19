@@ -107,10 +107,10 @@ class Ui_form_record_attendance(object):
         self.button_take_auto.setText("Automatic Attendance")
 
         self.FuncLoadSub()
+        # self.FuncSelectedSub()
         QtCore.QMetaObject.connectSlotsByName(form_record_attendance)
         form_record_attendance.setTabOrder(self.button_take_manual, self.button_take_auto)
         self.button_back.clicked.connect(lambda: self.FuncBack(form_record_attendance))
-        self.FuncSelectedSub()
         self.button_take_manual.clicked.connect(self.manual_attendance)
         self.button_take_auto.clicked.connect(self.automatic_attendance)
 
@@ -151,16 +151,30 @@ class Ui_form_record_attendance(object):
             print(format(e))
 
     def manual_attendance(self):
-        if self.myresult is None:
-            self.ErrorReport(str("you must select correct subject!"))
-        else:
-            for self.row in self.myresult:
-                self.semester = self.row
-                print(self.semester)
-                self.WinManual = QtWidgets.QWidget()
-                self.ui = Ui_manual_attendance(self.UserName, self.comboBox.currentText(), self.semester)
-                self.ui.setupUi(self.WinManual)
-                self.WinManual.show()
+        try:
+            self.mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                database="collegeattend",
+                passwd=""
+            )
+            self.mycursor = self.mydb.cursor()
+            self.mycursor.execute("""SELECT semestername FROM collgdatatable WHERE %s IN(subject1,subject2,
+                            subject3,subject4,subject5,subject6,subject7)""", (self.comboBox.currentText(),))
+            self.myresult = self.mycursor.fetchone()
+            if self.myresult is None:
+                self.ErrorReport(str("you must select correct subject!"))
+            else:
+                for self.row in self.myresult:
+                    self.semester = self.row
+                    print(self.semester)
+                    self.WinManual = QtWidgets.QWidget()
+                    self.ui = Ui_manual_attendance(self.UserName, self.comboBox.currentText(), self.semester)
+                    self.ui.setupUi(self.WinManual)
+                    self.WinManual.show()
+        except mysql.connector.Error as e:
+            print(format(e))
+
 
     def automatic_attendance(self):
         if self.myresult is None:

@@ -8,8 +8,10 @@ from PyQt5.QtWidgets import QMessageBox
 
 class automaticAttendance(object):
 
-    def __init__(self):
-
+    def __init__(self, UserName, Subject, Semester):
+        self.UserName = UserName
+        self.Subject = Subject
+        self.Semester = Semester
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
         self.recognizer.read("trainer/trainer.yml")
         self.classifier_path = "classifier.xml"
