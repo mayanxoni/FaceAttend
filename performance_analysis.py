@@ -9,7 +9,7 @@
 import  mysql.connector
 
 from ErrorMessg import Ui_Dialog
-from bar_chart import  Ui_Chart
+from bar_chart import  BarChart
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -339,8 +339,8 @@ class Ui_performance_analysis(object):
             print(self.Percentage[k])
 
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_Chart(self.Percentage,self.ListSubj)
-        self.ui.setupUi(self.window)
+        self.ui = BarChart(self.Percentage, self.ListSubj)
+        self.ui.setup_ui(self.window)
         self.window.show()
 
 
