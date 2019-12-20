@@ -1,23 +1,21 @@
-# from dashboard import Ui_form_dashboard
 import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 from ErrorMessg import Ui_Dialog
-from automatic_attendance import automaticAttendance
+from automatic_attendance import AutomaticAttendance
 from manual_attendance import Ui_manual_attendance
 
 
-class Ui_form_record_attendance(object):
+class RecordAttendance(object):
 
-    def __init__(self, UserName):
+    def __init__(self, user_name):
         # self.dash = Ui_form_dashboard()
-        self.UserName = UserName
+        self.UserName = user_name
 
     def setupUi(self, form_record_attendance):
         form_record_attendance.setObjectName("form_record_attendance")
         form_record_attendance.resize(720, 480)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_record_attendance.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(form_record_attendance)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -184,15 +182,15 @@ class Ui_form_record_attendance(object):
                 self.semester = self.row
                 print(self.semester)
                 self.win_auto = QtWidgets.QWidget()
-                self.ui = automaticAttendance(self.UserName, self.comboBox.currentText(), self.semester)
-                self.ui.setupUi(self.win_auto)
+                self.ui = AutomaticAttendance(self.UserName, self.comboBox.currentText(), self.semester)
+                self.ui.setup_ui(self.win_auto)
                 self.win_auto.show()
 
     def FuncBack(self, form_record_attendance):
         print("button hit")
         # self.WinDash = QtWidgets.QWidget()
-        # self.ui = Ui_form_dashboard(self.UserName)
-        # self.ui.setupUi(self.WinDash)
+        # self.ui = Ui_form_dashboard(self.user_name)
+        # self.ui.setup_ui(self.WinDash)
         form_record_attendance.hide()
         # self.dash.CallForShow()
 
@@ -209,7 +207,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     form_record_attendance = QtWidgets.QWidget()
-    ui = Ui_form_record_attendance()
+    ui = RecordAttendance()
     ui.setupUi(form_record_attendance)
     form_record_attendance.show()
     sys._excepthook = sys.excepthook

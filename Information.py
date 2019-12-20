@@ -16,7 +16,7 @@ class Ui_Info:
         msg.resize(130,550)
         msg.setFixedSize(130,550)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         msg.setWindowIcon(icon)
         msg.setIcon(QMessageBox.Information)
 

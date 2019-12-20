@@ -18,7 +18,7 @@ class Ui_performance_analysis(object):
         performance_analysis.setObjectName("performance_analysis")
         performance_analysis.resize(720, 480)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         performance_analysis.setWindowIcon(icon)
         self.grid_layout = QtWidgets.QGridLayout(performance_analysis)
         self.grid_layout.setObjectName("grid_layout")
@@ -120,7 +120,7 @@ class Ui_performance_analysis(object):
         _translate = QtCore.QCoreApplication.translate
         performance_analysis.setWindowTitle(_translate("performance_analysis", "Performance Analysis"))
         self.line_edit_enrollment.setPlaceholderText(_translate("performance_analysis", "Enrollment Number"))
-        self.label_placeholder_2.setText(_translate("performance_analysis", "Or, choose Semester and Roll Number:"))
+        self.label_placeholder_2.setText(_translate("performance_analysis", "Or, choose semester and Roll Number:"))
         self.label_performance_analysis.setText(_translate("performance_analysis", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600; color:#888a85;\">PERFORMANCE ANALYSIS</span></p></body></html>"))
         self.label_placeholder_1.setText(_translate("performance_analysis", "You can check the performance of any student by their Enrollment Number:"))
 
@@ -350,8 +350,8 @@ class Ui_performance_analysis(object):
     def FuncBack(self,performance_analysis):
         performance_analysis.close()
         # self.WinAdmin = QtWidgets.QWidget()
-        # self.ui = Ui_form_admin_panel()
-        # self.ui.setupUi(self.WinAdmin)
+        # self.ui = AdminPanel()
+        # self.ui.setup_ui(self.WinAdmin)
         # self.WinAdmin.show()
 
 

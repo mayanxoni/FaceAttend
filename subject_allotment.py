@@ -9,7 +9,7 @@ class Ui_subject_allotment(object):
         subject_allotment.setObjectName("subject_allotment")
         subject_allotment.resize(720, 480)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         subject_allotment.setWindowIcon(icon)
         self.gridLayout_4 = QtWidgets.QGridLayout(subject_allotment)
         self.gridLayout_4.setObjectName("gridLayout_4")

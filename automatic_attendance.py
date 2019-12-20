@@ -6,52 +6,57 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
 
 
-class automaticAttendance(object):
+class AutomaticAttendance(object):
 
-    def __init__(self, UserName, Subject, Semester):
-        self.UserName = UserName
-        self.Subject = Subject
-        self.Semester = Semester
+    def __init__(self, user_name, subject, semester):
+        self.user_name = user_name
+        self.subject = subject
+        self.semester = semester
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
         self.recognizer.read("trainer/trainer.yml")
         self.classifier_path = "classifier.xml"
         self.image_classifier = cv2.CascadeClassifier(self.classifier_path)
 
-    def setupUi(self, form_camera_feed):
+    def setup_ui(self, automatic_attendance_object):
         self.timer = QTimer()
-        form_camera_feed.setObjectName("form_camera_feed")
-        form_camera_feed.resize(720, 480)
-        form_camera_feed.setFixedSize(720, 480)
+        automatic_attendance_object.setObjectName("automatic_attendance_object")
+        automatic_attendance_object.resize(720, 480)
+        automatic_attendance_object.setFixedSize(720, 480)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/newPrefix/FaceAttend.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        form_camera_feed.setWindowIcon(icon)
-        self.horizontalLayout = QtWidgets.QHBoxLayout(form_camera_feed)
+        automatic_attendance_object.setWindowIcon(icon)
+        self.horizontalLayout = QtWidgets.QHBoxLayout(automatic_attendance_object)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.layout_vertical = QtWidgets.QVBoxLayout()
         self.layout_vertical.setObjectName("layout_vertical")
-        self.label_image = QtWidgets.QLabel(form_camera_feed)
+        self.label_image = QtWidgets.QLabel(automatic_attendance_object)
         self.label_image.setAlignment(QtCore.Qt.AlignCenter)
         self.label_image.setObjectName("label_image")
         self.layout_vertical.addWidget(self.label_image, 0, QtCore.Qt.AlignHCenter)
-        self.button_dashboard = QtWidgets.QPushButton(form_camera_feed)
+        self.button_dashboard = QtWidgets.QPushButton(automatic_attendance_object)
         self.button_dashboard.setObjectName("button_dashboard")
         self.layout_vertical.addWidget(self.button_dashboard)
-        self.button_capture = QtWidgets.QPushButton(form_camera_feed)
+        self.button_capture = QtWidgets.QPushButton(automatic_attendance_object)
         self.button_capture.setObjectName("button_capture")
         self.layout_vertical.addWidget(self.button_capture)
         self.horizontalLayout.addLayout(self.layout_vertical)
-        form_camera_feed.setWindowTitle("Camera Feed")
+        automatic_attendance_object.setWindowTitle("Camera Feed")
         self.label_image.setText("To start live camera feed, click \"Capture\" button.")
         self.button_dashboard.setText("Go to Dashboard")
         self.button_capture.setText("Capture")
         self.timer.timeout.connect(self.view_cam)
         self.button_capture.clicked.connect(self.controlTimer)
-        QtCore.QMetaObject.connectSlotsByName(form_camera_feed)
+        QtCore.QMetaObject.connectSlotsByName(automatic_attendance_object)
         self.connect_db()
 
     def connect_db(self):
         try:
-            self.connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
+            self.connection = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                passwd="",
+                database="collegeattend"
+            )
             self.db_cursor = self.connection.cursor()
 
         except Exception as e:
@@ -101,8 +106,8 @@ class automaticAttendance(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    form_camera_feed = QtWidgets.QWidget()
-    ui = automaticAttendance()
-    ui.setupUi(form_camera_feed)
-    form_camera_feed.show()
+    automatic_attendance = QtWidgets.QWidget()
+    ui = AutomaticAttendance()
+    ui.setup_ui(automatic_attendance)
+    automatic_attendance.show()
     sys.exit(app.exec_())
