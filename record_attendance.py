@@ -8,7 +8,7 @@ from manual_attendance import Ui_manual_attendance
 class RecordAttendance(object):
 
     def __init__(self, user_name):
-        # self.dash = Ui_form_dashboard()
+        # self.dash = Dashboard()
         self.UserName = user_name
 
     def setupUi(self, form_record_attendance):
@@ -189,7 +189,7 @@ class RecordAttendance(object):
     def FuncBack(self, form_record_attendance):
         print("button hit")
         # self.WinDash = QtWidgets.QWidget()
-        # self.ui = Ui_form_dashboard(self.user_name)
+        # self.ui = Dashboard(self.user_name)
         # self.ui.setup_ui(self.WinDash)
         form_record_attendance.hide()
         # self.dash.CallForShow()
