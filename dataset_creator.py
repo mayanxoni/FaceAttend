@@ -122,8 +122,8 @@ class DatasetCreator(object):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    dataset_qwidget = QtWidgets.QWidget()
+    dataset_creator_object = QtWidgets.QWidget()
     dataset_creator = DatasetCreator()
-    dataset_creator.setup_ui(dataset_qwidget)
-    dataset_qwidget.show()
+    dataset_creator.setup_ui(dataset_creator_object)
+    dataset_creator_object.show()
     sys.exit(app.exec_())

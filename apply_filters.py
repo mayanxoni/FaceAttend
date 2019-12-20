@@ -191,10 +191,10 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    apply_filters = QtWidgets.QWidget()
-    ui = ApplyFilters()
-    ui.setup_ui(apply_filters)
-    apply_filters.show()
+    apply_filters_object = QtWidgets.QWidget()
+    apply_filters = ApplyFilters()
+    apply_filters.setup_ui(apply_filters_object)
+    apply_filters_object.show()
     sys._excepthook = sys.excepthook
 
 

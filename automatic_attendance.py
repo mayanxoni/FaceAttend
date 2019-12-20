@@ -106,8 +106,8 @@ class AutomaticAttendance(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    automatic_attendance = QtWidgets.QWidget()
-    ui = AutomaticAttendance()
-    ui.setup_ui(automatic_attendance)
-    automatic_attendance.show()
+    automatic_attendance_object = QtWidgets.QWidget()
+    automatic_attendance = AutomaticAttendance()
+    automatic_attendance.setup_ui(automatic_attendance_object)
+    automatic_attendance_object.show()
     sys.exit(app.exec_())

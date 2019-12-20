@@ -1,6 +1,6 @@
-from performance_analysis import Ui_performance_analysis
+from performance_analysis import PerformanceAnalysis
 from PyQt5 import QtCore, QtGui, QtWidgets
-from subject_allotment import Ui_subject_allotment
+from subject_allotment import SubjectAllotment
 
 
 class AdminPanel(object):
@@ -130,14 +130,14 @@ class AdminPanel(object):
 
     def subject_allocation(self):
         self.win_subject_allotment = QtWidgets.QWidget()
-        self.ui = Ui_subject_allotment()
-        self.ui.setupUi(self.win_subject_allotment)
+        self.ui = SubjectAllotment()
+        self.ui.setup_ui(self.win_subject_allotment)
         self.win_subject_allotment.show()
 
     def performance_analysis(self):
         self.win_performance = QtWidgets.QWidget()
-        self.ui = Ui_performance_analysis()
-        self.ui.setupUi(self.win_performance)
+        self.ui = PerformanceAnalysis()
+        self.ui.setup_ui(self.win_performance)
         self.win_performance.show()
 
 
@@ -145,10 +145,10 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    admin_panel = QtWidgets.QWidget()
-    ui = AdminPanel()
-    ui.setup_ui(admin_panel)
-    admin_panel.show()
+    admin_panel_object = QtWidgets.QWidget()
+    admin_panel = AdminPanel()
+    admin_panel.setup_ui(admin_panel_object)
+    admin_panel_object.show()
     sys._excepthook = sys.excepthook
 
 

@@ -95,10 +95,10 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    bar_chart = QtWidgets.QMainWindow()
-    ui = BarChart()
-    ui.setup_ui(bar_chart)
-    bar_chart.show()
+    bar_chart_object = QtWidgets.QMainWindow()
+    bar_chart = BarChart()
+    bar_chart.setup_ui(bar_chart_object)
+    bar_chart_object.show()
     sys._excepthook = sys.excepthook
 
 
