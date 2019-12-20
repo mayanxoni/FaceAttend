@@ -198,3 +198,4 @@ dmypy.json
 # End of https://www.gitignore.io/api/python,pycharm
 .idea/vcs.xml
 /venv/
+/.idea/
