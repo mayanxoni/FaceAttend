@@ -23,7 +23,7 @@ def get_profile(s_roll):
         connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
         db_cursor = connection.cursor()
         print(str(s_roll))
-        db_cursor.execute("SELECT name FROM studentdetails WHERE enrollement = " + str(s_roll))
+        db_cursor.execute("SELECT s_name FROM studentdetails WHERE s_roll = " + str(s_roll))
         query_result = db_cursor.fetchone()
         student_profile = None
         for row in query_result:
