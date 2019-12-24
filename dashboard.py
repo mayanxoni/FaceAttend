@@ -136,7 +136,7 @@ class Dashboard(object):
     def record_attendance(self):
         self.win_record_attendance = QtWidgets.QWidget()
         self.ui = RecordAttendance(self.user_name)
-        self.ui.setup_ui(self.win_record_attendance)
+        self.ui.setupUi(self.win_record_attendance)
         self.win_record_attendance.show()
 
     def update_attendance(self):
@@ -154,10 +154,10 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    dashboard_object = QtWidgets.QWidget()
-    dashboard = Dashboard()
-    dashboard.setup_ui(dashboard_object)
-    dashboard_object.show()
+    form_dashboard = QtWidgets.QWidget()
+    ui = Dashboard()
+    ui.setup_ui(form_dashboard)
+    form_dashboard.show()
     sys._excepthook = sys.excepthook
 
 

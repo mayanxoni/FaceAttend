@@ -1,32 +1,34 @@
 import hashlib
+
 import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
-from error_message import ErrorMessage
-from signup import Signup
+
+from ErrorMessg import  Ui_Dialog
+from signup import Ui_form_signup
 from dashboard import Dashboard
-from admin_panel import AdminPanel
-from info import Info
+from admin_panel import  AdminPanel
+from  Information import  Ui_Info
 
 
-class Login(object):
-    def setup_ui(self, login_object):
-        self.from_login = login_object
-        login_object.setObjectName("login_object")
-        login_object.setWindowModality(QtCore.Qt.ApplicationModal)
-        login_object.setEnabled(True)
-        login_object.resize(380, 420)
-        login_object.setFixedSize(380, 420)
-        login_object.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
+class Ui_form_login(object):
+    def setupUi(self, form_login):
+        self.from_login = form_login
+        form_login.setObjectName("form_login")
+        form_login.setWindowModality(QtCore.Qt.ApplicationModal)
+        form_login.setEnabled(True)
+        form_login.resize(380, 420)
+        form_login.setFixedSize(380, 420)
+        form_login.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        login_object.setWindowIcon(icon)
-        login_object.setLayoutDirection(QtCore.Qt.LeftToRight)
-        login_object.setAutoFillBackground(False)
-        login_object.setTabShape(QtWidgets.QTabWidget.Rounded)
-        login_object.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks | QtWidgets.QMainWindow.AnimatedDocks)
-        login_object.setUnifiedTitleAndToolBarOnMac(False)
-        self.central_widget = QtWidgets.QWidget(login_object)
+        form_login.setWindowIcon(icon)
+        form_login.setLayoutDirection(QtCore.Qt.LeftToRight)
+        form_login.setAutoFillBackground(False)
+        form_login.setTabShape(QtWidgets.QTabWidget.Rounded)
+        form_login.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
+        form_login.setUnifiedTitleAndToolBarOnMac(False)
+        self.central_widget = QtWidgets.QWidget(form_login)
         self.central_widget.setObjectName("central_widget")
         self.gridLayout = QtWidgets.QGridLayout(self.central_widget)
         self.gridLayout.setObjectName("gridLayout")
@@ -61,8 +63,7 @@ class Login(object):
         self.label_faceattend_icon.setPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"))
         self.label_faceattend_icon.setAlignment(QtCore.Qt.AlignCenter)
         self.label_faceattend_icon.setObjectName("label_faceattend_icon")
-        self.gridLayout.addWidget(self.label_faceattend_icon, 1, 0, 1, 1,
-                                  QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+        self.gridLayout.addWidget(self.label_faceattend_icon, 1, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.label_spacer_bottom = QtWidgets.QLabel(self.central_widget)
         self.label_spacer_bottom.setText("")
         self.label_spacer_bottom.setObjectName("label_spacer_bottom")
@@ -89,105 +90,106 @@ class Login(object):
         self.label_spacer_middle_1.setText("")
         self.label_spacer_middle_1.setObjectName("label_spacer_middle_1")
         self.gridLayout.addWidget(self.label_spacer_middle_1, 2, 0, 1, 1)
-        login_object.setCentralWidget(self.central_widget)
+        form_login.setCentralWidget(self.central_widget)
 
-        login_object.setWindowTitle("Login")
-        self.button_signup.setToolTip("Click to get yourself signed up!")
-        self.button_signup.setText("Signup")
-        self.line_edit_password.setToolTip("Enter your password.")
-        self.line_edit_password.setPlaceholderText("Password")
-        self.label_placeholder.setText("Don\'t have access to username/password?\n""Contact Computer Centre or Signup "
-                                       "to gain access.")
-        self.line_edit_username.setToolTip("Enter your username.")
-        self.line_edit_username.setPlaceholderText("Username")
-        self.button_login.setToolTip("Click to Login!")
-        self.button_login.setText("Login")
+        self.retranslateUi(form_login)
+        QtCore.QMetaObject.connectSlotsByName(form_login)
+        form_login.setTabOrder(self.line_edit_username, self.line_edit_password)
+        form_login.setTabOrder(self.line_edit_password, self.button_login)
+        form_login.setTabOrder(self.button_login, self.button_signup)
+        self.button_login.clicked.connect(lambda :self.FunChecking(form_login))
+        self.line_edit_password.returnPressed.connect(lambda :self.FunChecking(form_login))
+        self.button_signup.clicked.connect(lambda :self.FuncSignup(form_login))
 
-        QtCore.QMetaObject.connectSlotsByName(login_object)
-        login_object.setTabOrder(self.line_edit_username, self.line_edit_password)
-        login_object.setTabOrder(self.line_edit_password, self.button_login)
-        login_object.setTabOrder(self.button_login, self.button_signup)
-        self.button_login.clicked.connect(lambda: self.validate_and_login(login_object))
-        self.line_edit_password.returnPressed.connect(lambda: self.validate_and_login(login_object))
-        self.button_signup.clicked.connect(lambda: self.signup(login_object))
+    def retranslateUi(self, form_login):
+        _translate = QtCore.QCoreApplication.translate
+        form_login.setWindowTitle(_translate("form_login", "Login"))
+        self.button_signup.setToolTip(_translate("form_login", "Click to get yourself signed up!"))
+        self.button_signup.setText(_translate("form_login", "Signup"))
+        self.line_edit_password.setToolTip(_translate("form_login", "Enter your password."))
+        self.line_edit_password.setPlaceholderText(_translate("form_login", "Password"))
+        self.label_placeholder.setText(_translate("form_login", "Don\'t have access to username/password?\n""Contact Computer Centre or Signup to gain access."))
+        self.line_edit_username.setToolTip(_translate("form_login", "Enter your username."))
+        self.line_edit_username.setPlaceholderText(_translate("form_login", "Username"))
+        self.button_login.setToolTip(_translate("form_login", "Click to Login!"))
+        self.button_login.setText(_translate("form_login", "Login"))
 
-    def validate_and_login(self, login_object):
-        user_name = self.line_edit_username.text()
-        password = self.line_edit_password.text()
-        secure_password = hashlib.sha1(str(password).encode())
-        password = secure_password.hexdigest()
-        if user_name == "" and self.line_edit_password.text() == "":
-            self.error_report(str("Please enter your username and password!"))
-        elif user_name == "":
-            self.error_report(str("Please enter your username!"))
-        elif self.line_edit_password.text() == "":
-            self.error_report(str("Please enter your password!"))
+
+    def FunChecking(self,form_login):
+        UserName = self.line_edit_username.text()
+        PassWD = self.line_edit_password.text()
+        Pass2 = hashlib.sha1(str(PassWD).encode())
+        PassWD = Pass2.hexdigest()
+        if UserName == "" and  self.line_edit_password.text() == "":
+            self.ErrorReport(str("Please Enter Your Username And Password."))
+        elif UserName == "" :
+            self.ErrorReport(str("Please Enter Your Useraname."))
+        elif self.line_edit_password.text() == "" :
+            self.ErrorReport(str("Please Enter Your Password. "))
         try:
-            connection = mysql.connector.connect(
+            mydb = mysql.connector.connect(
                 host="localhost",
                 user="root",
                 database="collegeattend",
                 passwd=""
             )
-            db_cursor = connection.cursor()
-            user_id_query = "SELECT userid FROM userdatabase where userid = " + user_name + " and pass = " + password
-            db_cursor.execute(user_id_query)
-            user_id_result = db_cursor.fetchone()
-            if user_id_result is None:
-                self.error_report(str("Username or password does not match!"))
-            elif user_id_result[0] == "Admin":
-                self.info_report(str("admin account"))
-                self.win_admin_panel = QtWidgets.QWidget()
-                self.ui = AdminPanel(login_object)
-                self.ui.setup_ui(self.win_admin_panel)
-                login_object.hide()
+            mycursor = mydb.cursor()
+            mycursor.execute("SELECT userid FROM userdatabase where userid = %s and pass = %s",(UserName, PassWD,))
+            myresult = mycursor.fetchone()
+            if myresult is None:
+                self.ErrorReport(str("Username or password don't match."))
+            elif myresult[0] == "Admin":
+                self.InfoReport(str("admin account"))
+                self.WinAdmin = QtWidgets.QWidget()
+                self.ui = AdminPanel(form_login)
+                self.ui.setup_ui(self.WinAdmin)
+                form_login.hide()
                 self.line_edit_username.clear()
                 self.line_edit_password.clear()
-                self.win_admin_panel.show()
+                self.WinAdmin.show()
             else:
-                self.info_report(str("Teacher account"))
-                self.win_dashboard = QtWidgets.QWidget()
-                self.ui = Dashboard(user_name, login_object)
-                self.ui.setup_ui(self.win_dashboard)
-                login_object.hide()
+                self.InfoReport(str("Teacher account"))
+                self.WinDash = QtWidgets.QWidget()
+                self.ui = Dashboard(UserName, form_login)
+                self.ui.setup_ui(self.WinDash)
+                form_login.hide()
                 self.line_edit_username.clear()
                 self.line_edit_password.clear()
-                self.win_dashboard.show()
+                self.WinDash.show()
 
         except mysql.connector.Error as e:
-            self.error_report(str("Server not responding! Please make sure college database server is working."))
+            self.ErrorReport(str("Database server didn't respond please make sure college database server is working "))
             print(e.errno)
             print(e.sqlstate)
             print("Failed to insert into MySQL table {}".format(e))
 
-    def signup(self, login_object):
-        self.win_signup = QtWidgets.QWidget()
-        self.ui = Signup(login_object)
-        self.ui.setup_ui(self.win_signup)
-        login_object.hide()
-        self.win_signup.show()
 
-    @staticmethod
-    def error_report(message):
-        message_box = QtWidgets.QMessageBox()
-        ui = ErrorMessage(message)
-        ui.setup_ui(message_box)
+    def FuncSignup(self,form_login):
+        self.WinSignup = QtWidgets.QWidget()
+        self.ui = Ui_form_signup(form_login)
+        self.ui.setupUi(self.WinSignup)
+        form_login.hide()
+        self.WinSignup.show()
 
-    @staticmethod
-    def info_report(message):
-        message_box = QtWidgets.QMessageBox()
-        ui = Info(message)
-        ui.setup_ui(message_box)
 
+
+    def ErrorReport(self,message):
+        messageBox = QtWidgets.QMessageBox()
+        ui = Ui_Dialog(message)
+        ui.setupUi(messageBox)
+
+    def InfoReport(self,message):
+        messageBox = QtWidgets.QMessageBox()
+        ui = Ui_Info(message)
+        ui.setupUi(messageBox)
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
-    login_object = QtWidgets.QMainWindow()
-    login = Login()
-    login.setup_ui(login_object)
-    login_object.show()
+    form_login = QtWidgets.QMainWindow()
+    ui = Ui_form_login()
+    ui.setupUi(form_login)
+    form_login.show()
     sys._excepthook = sys.excepthook
 
 

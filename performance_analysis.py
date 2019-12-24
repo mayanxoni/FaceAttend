@@ -1,59 +1,68 @@
-import mysql.connector
-from error_message import ErrorMessage
-from bar_chart import BarChart
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'performance_analysis.ui'
+#
+# Created by: PyQt5 UI code generator 5.13.2
+#
+# WARNING! All changes made in this file will be lost!
+
+import  mysql.connector
+
+from ErrorMessg import Ui_Dialog
+from bar_chart import  BarChart
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class PerformanceAnalysis(object):
-    def setup_ui(self, performance_analysis_object):
-        performance_analysis_object.setObjectName("performance_analysis_object")
-        performance_analysis_object.resize(720, 480)
+class Ui_performance_analysis(object):
+    def setupUi(self, performance_analysis):
+        performance_analysis.setObjectName("performance_analysis")
+        performance_analysis.resize(720, 480)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        performance_analysis_object.setWindowIcon(icon)
-        self.grid_layout = QtWidgets.QGridLayout(performance_analysis_object)
+        performance_analysis.setWindowIcon(icon)
+        self.grid_layout = QtWidgets.QGridLayout(performance_analysis)
         self.grid_layout.setObjectName("grid_layout")
-        self.label_spacer_bottom = QtWidgets.QLabel(performance_analysis_object)
+        self.label_spacer_bottom = QtWidgets.QLabel(performance_analysis)
         self.label_spacer_bottom.setText("")
         self.label_spacer_bottom.setObjectName("label_spacer_bottom")
         self.grid_layout.addWidget(self.label_spacer_bottom, 13, 1, 1, 1)
-        self.label_spacer_top = QtWidgets.QLabel(performance_analysis_object)
+        self.label_spacer_top = QtWidgets.QLabel(performance_analysis)
         self.label_spacer_top.setText("")
         self.label_spacer_top.setObjectName("label_spacer_top")
         self.grid_layout.addWidget(self.label_spacer_top, 8, 1, 1, 1)
         self.form_layout = QtWidgets.QFormLayout()
         self.form_layout.setObjectName("form_layout")
-        self.radio_enrollment = QtWidgets.QRadioButton(performance_analysis_object)
+        self.radio_enrollment = QtWidgets.QRadioButton(performance_analysis)
         self.radio_enrollment.setText("")
         self.radio_enrollment.setObjectName("radio_enrollment")
         self.form_layout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.radio_enrollment)
-        self.line_edit_enrollment = QtWidgets.QLineEdit(performance_analysis_object)
+        self.line_edit_enrollment = QtWidgets.QLineEdit(performance_analysis)
         self.line_edit_enrollment.setEnabled(False)
         self.line_edit_enrollment.setObjectName("line_edit_enrollment")
         self.form_layout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.line_edit_enrollment)
-        self.radio_semester = QtWidgets.QRadioButton(performance_analysis_object)
+        self.radio_semester = QtWidgets.QRadioButton(performance_analysis)
         self.radio_semester.setText("")
         self.radio_semester.setObjectName("radio_semester")
         self.form_layout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.radio_semester)
-        self.combo_box_semester = QtWidgets.QComboBox(performance_analysis_object)
+        self.combo_box_semester = QtWidgets.QComboBox(performance_analysis)
         self.combo_box_semester.setEnabled(False)
         self.combo_box_semester.setObjectName("combo_box_semester")
         self.form_layout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.combo_box_semester)
-        self.combo_box_roll = QtWidgets.QComboBox(performance_analysis_object)
+        self.combo_box_roll = QtWidgets.QComboBox(performance_analysis)
         self.combo_box_roll.setEnabled(False)
         self.combo_box_roll.setObjectName("combo_box_roll")
         self.form_layout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.combo_box_roll)
-        self.label_placeholder_2 = QtWidgets.QLabel(performance_analysis_object)
+        self.label_placeholder_2 = QtWidgets.QLabel(performance_analysis)
         self.label_placeholder_2.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label_placeholder_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_placeholder_2.setObjectName("label_placeholder_2")
         self.form_layout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.label_placeholder_2)
-        self.label_spacer_middle = QtWidgets.QLabel(performance_analysis_object)
+        self.label_spacer_middle = QtWidgets.QLabel(performance_analysis)
         self.label_spacer_middle.setText("")
         self.label_spacer_middle.setObjectName("label_spacer_middle")
         self.form_layout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.label_spacer_middle)
         self.grid_layout.addLayout(self.form_layout, 11, 1, 1, 1)
-        self.button_update = QtWidgets.QPushButton(performance_analysis_object)
+        self.button_update = QtWidgets.QPushButton(performance_analysis)
         self.button_update.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("assets/tick.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -62,7 +71,7 @@ class PerformanceAnalysis(object):
         self.button_update.setFlat(False)
         self.button_update.setObjectName("button_update")
         self.grid_layout.addWidget(self.button_update, 15, 0, 1, 3, QtCore.Qt.AlignHCenter)
-        self.label_spacer_beneath = QtWidgets.QLabel(performance_analysis_object)
+        self.label_spacer_beneath = QtWidgets.QLabel(performance_analysis)
         self.label_spacer_beneath.setText("")
         self.label_spacer_beneath.setObjectName("label_spacer_beneath")
         self.grid_layout.addWidget(self.label_spacer_beneath, 12, 1, 1, 1)
@@ -70,7 +79,7 @@ class PerformanceAnalysis(object):
         self.grid_layout.addItem(spacerItem, 11, 2, 1, 1)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.button_back = QtWidgets.QPushButton(performance_analysis_object)
+        self.button_back = QtWidgets.QPushButton(performance_analysis)
         self.button_back.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("assets/return.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -79,88 +88,89 @@ class PerformanceAnalysis(object):
         self.button_back.setFlat(True)
         self.button_back.setObjectName("button_back")
         self.gridLayout.addWidget(self.button_back, 0, 0, 1, 1, QtCore.Qt.AlignLeft)
-        self.label_performance_analysis = QtWidgets.QLabel(performance_analysis_object)
+        self.label_performance_analysis = QtWidgets.QLabel(performance_analysis)
         self.label_performance_analysis.setObjectName("label_performance_analysis")
         self.gridLayout.addWidget(self.label_performance_analysis, 0, 1, 1, 1, QtCore.Qt.AlignHCenter)
-        self.label_2 = QtWidgets.QLabel(performance_analysis_object)
+        self.label_2 = QtWidgets.QLabel(performance_analysis)
         self.label_2.setText("")
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 0, 2, 1, 1)
         self.grid_layout.addLayout(self.gridLayout, 0, 0, 1, 3)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.grid_layout.addItem(spacerItem1, 11, 0, 1, 1)
-        self.label_graph_icon = QtWidgets.QLabel(performance_analysis_object)
+        self.label_graph_icon = QtWidgets.QLabel(performance_analysis)
         self.label_graph_icon.setText("")
         self.label_graph_icon.setPixmap(QtGui.QPixmap("assets/analytics.png"))
         self.label_graph_icon.setScaledContents(True)
         self.label_graph_icon.setObjectName("label_graph_icon")
-        self.grid_layout.addWidget(self.label_graph_icon, 9, 1, 1, 1, QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-        self.label_placeholder_1 = QtWidgets.QLabel(performance_analysis_object)
+        self.grid_layout.addWidget(self.label_graph_icon, 9, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.label_placeholder_1 = QtWidgets.QLabel(performance_analysis)
         self.label_placeholder_1.setObjectName("label_placeholder_1")
         self.grid_layout.addWidget(self.label_placeholder_1, 10, 1, 1, 1)
 
-        performance_analysis_object.setWindowTitle("Performance Analysis")
-        self.line_edit_enrollment.setPlaceholderText("Enrollment Number")
-        self.label_placeholder_1.setText("You can check the performance of any student by their Enrollment Number:")
-        self.label_placeholder_2.setText("Or, by their Semester and Roll Number:")
-        self.label_performance_analysis.setText("<html><head/><body><p align=\"center\"><span style=\" "
-                                                "font-size:16pt; font-weight:600; color:#888a85;\">PERFORMANCE "
-                                                "ANALYSIS</span></p></body></html>")
+        self.retranslateUi(performance_analysis)
+        QtCore.QMetaObject.connectSlotsByName(performance_analysis)
+        self.button_update.clicked.connect(self.FuncStudentDetails)
+        self.radio_semester.toggled.connect(self.FuncRadio)
+        self.radio_enrollment.toggled.connect(self.FuncRadio)
+        self.combo_box_semester.currentIndexChanged.connect(self.FuncLoadRollNum)
+        self.button_back.clicked.connect(lambda :self.FuncBack(performance_analysis))
 
-        QtCore.QMetaObject.connectSlotsByName(performance_analysis_object)
-        self.button_update.clicked.connect(self.student_details)
-        self.radio_semester.toggled.connect(self.toggle_radio)
-        self.radio_enrollment.toggled.connect(self.toggle_radio)
-        self.combo_box_semester.currentIndexChanged.connect(self.load_roll)
-        self.button_back.clicked.connect(lambda: self.back(performance_analysis_object))
+    def retranslateUi(self, performance_analysis):
+        _translate = QtCore.QCoreApplication.translate
+        performance_analysis.setWindowTitle(_translate("performance_analysis", "Performance Analysis"))
+        self.line_edit_enrollment.setPlaceholderText(_translate("performance_analysis", "Enrollment Number"))
+        self.label_placeholder_2.setText(_translate("performance_analysis", "Or, choose semester and Roll Number:"))
+        self.label_performance_analysis.setText(_translate("performance_analysis", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600; color:#888a85;\">PERFORMANCE ANALYSIS</span></p></body></html>"))
+        self.label_placeholder_1.setText(_translate("performance_analysis", "You can check the performance of any student by their Enrollment Number:"))
 
-    def toggle_radio(self):
-        if self.radio_enrollment.isChecked():
+    def FuncRadio(self):
+        if self.radio_enrollment.isChecked() == True:
             self.line_edit_enrollment.setEnabled(True)
-        elif self.radio_semester.isChecked():
+        elif self.radio_semester.isChecked() == True:
             self.combo_box_semester.setEnabled(True)
-            self.load_data()
+            self.FuncLoadData()
 
-    def load_data(self):
+    def FuncLoadData(self):
         try:
-            connection = mysql.connector.connect(
+            mydatabase = mysql.connector.connect(
                 host="localhost",
                 user="root",
                 database="collegeattend",
                 passwd=""
             )
-            db_cursor = connection.cursor()
-            semester_query = "SELECT distinct semester FROM `studentdetails`"
-            print(semester_query)
-            db_cursor.execute(semester_query)
-            semester_result = db_cursor.fetchall()
-            if semester_result is None:
-                self.error_report(str("Error!"))
+            cursor = mydatabase.cursor()
+            sql = "SELECT  distinct semester FROM `studentdetails`"
+            print(sql)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if result is None:
+                self.ErrorReport(str("error "))
             else:
-                for x in semester_result:
+                for x in result:
                     self.combo_box_semester.addItems(x)
         except mysql.connector.Error as e:
             print(e)
 
-    def load_roll(self):
+
+    def FuncLoadRollNum(self):
         self.combo_box_roll.setEnabled(True)
         try:
-            connection = mysql.connector.connect(
+            mydatabase = mysql.connector.connect(
                 host="localhost",
                 user="root",
                 database="collegeattend",
                 passwd=""
             )
-            db_cursor = connection.cursor()
-            roll_query = "SELECT  distinct rollnum FROM `studentdetails` where semester = '" + \
-                         self.combo_box_semester.currentText() + "'"
-            print(roll_query)
-            db_cursor.execute(roll_query)
-            roll_result = db_cursor.fetchall()
-            if roll_result is None:
-                self.error_report(str("Error!"))
+            cursor = mydatabase.cursor()
+            sql = "SELECT  distinct rollnum FROM `studentdetails` where semester = '"+self.combo_box_semester.currentText()+"'"
+            print(sql)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if result is None:
+                self.ErrorReport(str("error "))
             else:
-                for x in roll_result:
+                for x in result:
                     self.combo_box_roll.addItems(x)
         except mysql.connector.Error as e:
             print(e)
@@ -177,9 +187,10 @@ class PerformanceAnalysis(object):
     #     for row in myresult:
     #         self.combo_box_roll.addItem(row[0])
 
-    def student_details(self):
-        if self.radio_enrollment.isChecked():
-            if str(self.line_edit_enrollment.text()) != "":
+
+    def FuncStudentDetails(self):
+        if self.radio_enrollment.isChecked() == True:
+            if  str(self.line_edit_enrollment.text()) != "":
                 try:
                     mydb = mysql.connector.connect(
                         host="localhost",
@@ -188,75 +199,77 @@ class PerformanceAnalysis(object):
                         passwd=""
                     )
                     mycursor = mydb.cursor()
-                    mycursor.execute(
-                        "SELECT * FROM studentdetails where enrollement = " + str(self.line_edit_enrollment.text()))
+                    mycursor.execute("SELECT * FROM studentdetails where enrollement = "+str(self.line_edit_enrollment.text()))
                     myresult = mycursor.fetchone()
                     if myresult is None:
-                        self.error_report(str("No such student present here!"))
+                        self.ErrorReport(str("No Student with this details persent here."))
                     else:
-                        self.roll = myresult[0]
-                        self.semester = myresult[5]
+                        self.RollNUM = myresult[0]
+                        self.ListSEM = myresult[5]
                         for x in myresult:
                             print(x)
 
-                        self.fetch_subjects()
+                        self.FindSub()
                 except mysql.connector.Error as e:
                     print(e.errno)
                     print(e.sqlstate)
-                    print("Error from Def Student Enroll".format(e))
+                    print("Error from Def Student Enoll".format(e))
             else:
-                self.error_report(str(""))
+                self.ErrorReport(str(""))
 
-        elif self.radio_semester.isChecked():
+
+
+        elif self.radio_semester.isChecked() == True:
             try:
-                connection = mysql.connector.connect(
+                mydatabase = mysql.connector.connect(
                     host="localhost",
                     user="root",
                     database="collegeattend",
                     passwd=""
                 )
-                db_cursor = connection.cursor()
-                details_query = "SELECT * FROM `studentdetails` WHERE rollnum = " + \
-                                str(self.combo_box_roll.currentText()) + " AND semester = '" + \
-                                str(self.combo_box_semester.currentText()) + "'"
-                print(details_query)
-                db_cursor.execute(details_query)
-                details_result = db_cursor.fetchone()
-                if details_result is None:
-                    self.error_report(str("Error!"))
+                cursor = mydatabase.cursor()
+                sql = "SELECT * FROM `studentdetails` where  rollnum = " + str(self.combo_box_roll.currentText()) + " and semester = '" + str(self.combo_box_semester.currentText())+"'"
+                print(sql)
+                cursor.execute(sql)
+                result = cursor.fetchone()
+                if result is None:
+                    self.ErrorReport(str("Error"))
                 else:
-                    self.roll = details_result[0]
-                    self.semester = details_result[5]
-                    for x in details_result:
+                    self.RollNUM = result[0]
+                    self.ListSEM = result[5]
+                    for x in result:
                         print(x)
-                    self.fetch_subjects()
+
+                    self.FindSub()
             except mysql.connector.Error as e:
                 print(e.errno)
                 print(e.sqlstate)
                 print("Error from Def Student combo Box".format(e))
         else:
-            self.error_report()
+           self.ErrorReport()
 
-    def fetch_subjects(self):
-        self.subjects_list = []
+
+
+    def FindSub(self):
+        self.ListSubj = []
         try:
-            connection = mysql.connector.connect(
+            mydatabase = mysql.connector.connect(
                 host="localhost",
                 user="root",
                 database="collegeattend",
                 passwd=""
             )
-            db_cursor = connection.cursor()
-            subjects_query = "SELECT subject1, subject2, subject3, subject4, subject5, subject6, subject7 FROM " \
-                             "`collgdatatable` WHERE semestername= '" + str(self.semester) + "'"
-            print(subjects_query)
-            db_cursor.execute(subjects_query)
-            subjects_result = db_cursor.fetchone()
-            if subjects_result is None:
-                self.error_report()
+            cursor = mydatabase.cursor()
+            sql = "SELECT subject1,subject2,subject3,subject4,subject5,subject6,subject7 FROM `collgdatatable` where  semestername= '" + str(self.ListSEM) + "'"
+            print(sql)
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            if result is None:
+                self.ErrorReport()
             else:
-                for x in subjects_result:
-                    self.subjects_list.append(str(x))
+                for x in result:
+                    self.ListSubj.append(str(x))
+
                 # print(len(self.ListSubj))
                 # for i in range(len(self.ListSubj)):
                 #     print(self.ListSubj[i])
@@ -267,27 +280,26 @@ class PerformanceAnalysis(object):
             print("Error from Def FindSUb ".format(e))
 
     def AvgSem(self):
-        self.student_attended_list = []
-        self.total_classes_list = []
+        self.SutTotalAttd = []
+        self.ToTalClass = []
         for i in range(7):
             try:
-                connection = mysql.connector.connect(
+                mydatabase = mysql.connector.connect(
                     host="localhost",
                     user="root",
                     database="collegeattend",
                     passwd=""
                 )
-                db_cursor = connection.cursor()
-                classdate_query = "SELECT COUNT(`" + str(self.roll) + "`) FROM `" + str(self.subjects_list[i]) + "` WHERE `" + str(
-                    self.roll) + "` = '1'"
-                print(classdate_query)
-                db_cursor.execute(classdate_query)
-                classdate_result = db_cursor.fetchone()
-                if classdate_result is None:
-                    self.student_attended_list.append(str("Not"))
+                cursor = mydatabase.cursor()
+                sql = "SELECT COUNT(`"+str(self.RollNUM)+"`) FROM `"+str(self.ListSubj[i])+"` where  `"+str(self.RollNUM)+"` = '1'"
+                print(sql)
+                cursor.execute(sql)
+                result = cursor.fetchone()
+                if result is None:
+                    self.SutTotalAttd.append(str("Not"))
                 else:
-                    for x in classdate_result:
-                        self.student_attended_list.append(str(classdate_result[0]))
+                    for x in result:
+                        self.SutTotalAttd.append(str(result[0]))
             except mysql.connector.Error as e:
                 print(e.errno)
                 print(e.sqlstate)
@@ -295,68 +307,66 @@ class PerformanceAnalysis(object):
 
         for i in range(7):
             try:
-                connection = mysql.connector.connect(
+                mydatabase = mysql.connector.connect(
                     host="localhost",
                     user="root",
                     database="collegeattend",
                     passwd=""
                 )
-                db_cursor = connection.cursor()
-                classdate_query = "SELECT COUNT(`classdate`) FROM `" + str(self.subjects_list[i]) + "`"
-                print(classdate_query)
-                db_cursor.execute(classdate_query)
-                classdate_result = db_cursor.fetchone()
-                if classdate_result is None:
-                    self.total_classes_list.append(str("hot"))
+                cursor = mydatabase.cursor()
+                sql = "SELECT COUNT(`classdate`) FROM `"+str(self.ListSubj[i])+"`"
+                print(sql)
+                cursor.execute(sql)
+                result = cursor.fetchone()
+                if result is None:
+                    self.ToTalClass.append(str("hot"))
                 else:
-                    for x in classdate_result:
-                        self.total_classes_list.append(str(classdate_result[0]))
+                    for x in result:
+                        self.ToTalClass.append(str(result[0]))
             except mysql.connector.Error as e:
                 print(e.errno)
                 print(e.sqlstate)
                 print("Error from Def Avg Total block".format(e))
 
-        print(len(self.total_classes_list))
-        print(len(self.student_attended_list))
-        self.percentage_list = []
-        print("Total Classes")
-        for j in range(len(self.total_classes_list)):
-            self.percentage_list.append(int(self.student_attended_list[j]) / int(self.total_classes_list[j]) * 100)
-        print("Student Present")
-        for k in range(len(self.percentage_list)):
-            print(self.percentage_list[k])
+        print(len(self.ToTalClass))
+        print(len(self.SutTotalAttd))
+        self.Percentage =  []
+        print("total class")
+        for j in range(len(self.ToTalClass)):
+             self.Percentage.append(int(self.SutTotalAttd[j])/int(self.ToTalClass[j])*100)
+        print("student Present")
+        for k in range(len(self.Percentage)):
+            print(self.Percentage[k])
 
-        self.win_bar_chart = QtWidgets.QMainWindow()
-        self.ui = BarChart(self.percentage_list, self.subjects_list)
-        self.ui.setup_ui(self.win_bar_chart)
-        self.win_bar_chart.show()
+        self.window = QtWidgets.QMainWindow()
+        self.ui = BarChart(self.Percentage, self.ListSubj)
+        self.ui.setup_ui(self.window)
+        self.window.show()
 
-    def out_string(self):
-        return self.percentage_list
 
-    @staticmethod
-    def back(performance_analysis):
+    def Outstring(self):
+        return  self.Percentage
+
+    def FuncBack(self,performance_analysis):
         performance_analysis.close()
         # self.WinAdmin = QtWidgets.QWidget()
         # self.ui = AdminPanel()
         # self.ui.setup_ui(self.WinAdmin)
         # self.WinAdmin.show()
 
-    @staticmethod
-    def error_report(message):
-        message_box = QtWidgets.QMessageBox()
-        ui = ErrorMessage(message)
-        ui.setup_ui(message_box)
 
+    def ErrorReport(self,message):
+        messageBox = QtWidgets.QMessageBox()
+        ui = Ui_Dialog(message)
+        ui.setupUi(messageBox)
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
-    performance_analysis_object = QtWidgets.QWidget()
-    performance_analysis = PerformanceAnalysis()
-    performance_analysis.setup_ui(performance_analysis_object)
-    performance_analysis_object.show()
+    performance_analysis = QtWidgets.QWidget()
+    ui = Ui_performance_analysis()
+    ui.setupUi(performance_analysis)
+    performance_analysis.show()
     sys._excepthook = sys.excepthook
 
 
