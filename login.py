@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QMainWindow
 
 from ErrorMessg import  Ui_Dialog
 from signup import Ui_form_signup
-from dashboard import Dashboard
+from dashboard import Ui_form_dashboard
 from admin_panel import  AdminPanel
 from  Information import  Ui_Info
 
@@ -150,8 +150,8 @@ class Ui_form_login(object):
             else:
                 self.InfoReport(str("Teacher account"))
                 self.WinDash = QtWidgets.QWidget()
-                self.ui = Dashboard(UserName, form_login)
-                self.ui.setup_ui(self.WinDash)
+                self.ui = Ui_form_dashboard(UserName,form_login)
+                self.ui.setupUi(self.WinDash)
                 form_login.hide()
                 self.line_edit_username.clear()
                 self.line_edit_password.clear()
