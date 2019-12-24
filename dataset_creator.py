@@ -70,7 +70,7 @@ class datasetCreator(object):
             messageBox.setIcon(QMessageBox.Critical)
 
     def fetch_enroll(self):
-        self.s_enroll_query = "SELECT s_enroll FROM studentdetails"
+        self.s_enroll_query = "SELECT enrollement FROM studentdetails"
         self.db_cursor.execute(self.s_enroll_query)
         self.query_result = self.db_cursor.fetchall()
         for row in self.query_result:
@@ -106,7 +106,7 @@ class datasetCreator(object):
             self.button_capture.hide()
 
     def main_logic(self):
-        self.db_cursor.execute("SELECT s_roll FROM studentdetails WHERE s_enroll = " + (str(self.comboBox.currentText())))
+        self.db_cursor.execute("SELECT enrollement FROM studentdetails WHERE enrollement = " + (str(self.comboBox.currentText())))
         self.query_result1 = self.db_cursor.fetchall()
 
         for row1 in self.query_result1:
