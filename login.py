@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QMainWindow
 from ErrorMessg import  Ui_Dialog
 from signup import Ui_form_signup
 from dashboard import Ui_form_dashboard
-from admin_panel import  AdminPanel
+from admin_panel import  Ui_form_admin_panel
 from  Information import  Ui_Info
 
 
@@ -21,7 +21,7 @@ class Ui_form_login(object):
         form_login.setFixedSize(380, 420)
         form_login.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_login.setWindowIcon(icon)
         form_login.setLayoutDirection(QtCore.Qt.LeftToRight)
         form_login.setAutoFillBackground(False)
@@ -60,7 +60,7 @@ class Ui_form_login(object):
         self.gridLayout.addWidget(self.label_placeholder, 8, 0, 1, 1)
         self.label_faceattend_icon = QtWidgets.QLabel(self.central_widget)
         self.label_faceattend_icon.setText("")
-        self.label_faceattend_icon.setPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"))
+        self.label_faceattend_icon.setPixmap(QtGui.QPixmap("assets/FaceAttend2.png"))
         self.label_faceattend_icon.setAlignment(QtCore.Qt.AlignCenter)
         self.label_faceattend_icon.setObjectName("label_faceattend_icon")
         self.gridLayout.addWidget(self.label_faceattend_icon, 1, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
@@ -141,8 +141,8 @@ class Ui_form_login(object):
             elif myresult[0] == "Admin":
                 self.InfoReport(str("admin account"))
                 self.WinAdmin = QtWidgets.QWidget()
-                self.ui = AdminPanel(form_login)
-                self.ui.setup_ui(self.WinAdmin)
+                self.ui = Ui_form_admin_panel(form_login)
+                self.ui.setupUi(self.WinAdmin)
                 form_login.hide()
                 self.line_edit_username.clear()
                 self.line_edit_password.clear()

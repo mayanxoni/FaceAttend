@@ -30,7 +30,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Create and display the splash screen
-    splash_pix = QPixmap('assets/FaceAttendLogo.png')
+    splash_pix = QPixmap('assets/FaceAttend2.png')
 
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
     splash.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)

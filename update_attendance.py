@@ -1,22 +1,29 @@
-import mysql.connector
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'update_attendance.ui'
+#
+# Created by: PyQt5 UI code generator 5.13.2
+#
+# WARNING! All changes made in this file will be lost!
+
+import  mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
+
 from ErrorMessg import Ui_Dialog
 
 
-class UpdateAttendance(object):
-
-    def __init__(self, user_name, semester, subject, date):
-        self.Username = user_name
-        self.Semester = semester
-        self.Subject = subject
-        self.Date = date
-        
-    def setup_ui(self, update_attendance):
+class Ui_Update_Attendance(object):
+    def __init__(self,UserName,Semester,Subject,Date):
+        self.Username = UserName
+        self.Semester = Semester
+        self.Subject = Subject
+        self.Date = Date
+    def setupUi(self, update_attendance):
         update_attendance.setObjectName("update_attendance")
         update_attendance.resize(905, 480)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         update_attendance.setWindowIcon(icon)
         self.grid_layout = QtWidgets.QGridLayout(update_attendance)
         self.grid_layout.setObjectName("grid_layout")
@@ -400,8 +407,8 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     update_attendance = QtWidgets.QWidget()
-    ui = UpdateAttendance()
-    ui.setup_ui(update_attendance)
+    ui = Ui_Update_Attendance()
+    ui.setupUi(update_attendance)
     update_attendance.show()
     sys._excepthook = sys.excepthook
 

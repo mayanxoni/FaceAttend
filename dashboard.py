@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from record_attendance import  RecordAttendance
-from apply_filters import  ApplyFilters
+from record_attendance import  Ui_form_record_attendance
+from apply_filters import  Ui_apply_filters
 
 class Ui_form_dashboard(object):
 
@@ -12,7 +12,7 @@ class Ui_form_dashboard(object):
         form_dashboard.setObjectName("form_dashboard")
         form_dashboard.resize(720, 480)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_dashboard.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(form_dashboard)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -135,14 +135,14 @@ class Ui_form_dashboard(object):
 
     def FuncRecordAttandance(self):
         self.WinRecord = QtWidgets.QWidget()
-        self.ui = RecordAttendance(self.UserName)
+        self.ui = Ui_form_record_attendance(self.UserName)
         self.ui.setupUi(self.WinRecord)
         self.WinRecord.show()
 
     def FuncUpdateAttandance(self):
         self.WinUpdate = QtWidgets.QWidget()
-        self.ui = ApplyFilters(self.UserName)
-        self.ui.setup_ui(self.WinUpdate)
+        self.ui = Ui_apply_filters(self.UserName)
+        self.ui.setupUi(self.WinUpdate)
         self.WinUpdate.show()
 
     def FuncLogout(self,form_dashboard):

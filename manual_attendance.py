@@ -18,7 +18,7 @@ class Ui_manual_attendance(object):
         manual_attendance.setObjectName("manual_attendance")
         manual_attendance.resize(905, 480)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/FaceAttendLogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         manual_attendance.setWindowIcon(icon)
         self.grid_layout = QtWidgets.QGridLayout(manual_attendance)
         self.grid_layout.setObjectName("grid_layout")
