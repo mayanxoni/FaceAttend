@@ -36,7 +36,7 @@ def get_profile(s_roll):
         print(e)
 
 
-video_feed = cv2.VideoCapture(0)
+video_feed = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 font = cv2.FONT_HERSHEY_SIMPLEX
 profiles = {}
 
