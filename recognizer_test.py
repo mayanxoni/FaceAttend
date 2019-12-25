@@ -14,7 +14,7 @@ recognizer = cv2.face.LBPHFaceRecognizer_create()
 assure_path_exists("trainer/")
 recognizer.read("trainer/trainer.yml")
 classifier_path = "classifier.xml"
-faceCascade = cv2.CascadeClassifier(classifier_path)
+image_classifier = cv2.CascadeClassifier(classifier_path)
 
 
 def get_profile(s_roll):
@@ -36,14 +36,14 @@ def get_profile(s_roll):
         print(e)
 
 
-video_feed = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+camera_feed = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 font = cv2.FONT_HERSHEY_SIMPLEX
 profiles = {}
 
 while True:
-    ret, image = video_feed.read()
+    ret, image = camera_feed.read()
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    faces = faceCascade.detectMultiScale(gray_image, 1.2, 5)
+    faces = image_classifier.detectMultiScale(gray_image, 1.2, 5)
     for (x, y, w, h) in faces:
         student_id, confidence = recognizer.predict(gray_image[y:y + h, x:x + w])
         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
@@ -57,5 +57,5 @@ while True:
         print("exit")
         break
 
-video_feed.release()
+camera_feed.release()
 cv2.destroyAllWindows()

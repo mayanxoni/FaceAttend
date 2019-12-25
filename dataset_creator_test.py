@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QMessageBox
 import numpy as np
 from PIL import Image
 
+
 class datasetCreator(object):
 
     def __init__(self):
@@ -21,12 +22,12 @@ class datasetCreator(object):
 
         """STRINGS"""
         self.stop = "Stop"
-        self.failsafe_warning = "No unregistered student found.\nIf this seems strange to you, please contact system " \
-                                "administrator."
-        self.success_message = "Dataset created!\nPlease wait while the model is trained upon the face."
-        self.default_label = "To start live camera feed, click \"Capture\" button.\nClose the window when you're done " \
-                             "training the model."
-        self.button_dashboard_text = "Go to Dashboard"
+        self.failsafe_warning = "Sorry, no unregistered student found.\n\nIf this seems strange to you, " \
+                                "please contact system administrator,\nand go back to Dashboard. "
+        self.success_message = "Dataset created!\nStudent face registered and is ready for attendance."
+        self.default_label = "To start live camera feed, click \"Capture\" button.\nClose the window when you're " \
+                             "done training the model. "
+        self.button_dashboard_text = "Dashboard"
         self.button_capture_text = "Capture"
 
     def setupUi(self, form_dataset_creator):
@@ -72,7 +73,8 @@ class datasetCreator(object):
 
     def connect_db(self):
         try:
-            self.connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
+            self.connection = mysql.connector.connect(host="localhost", user="root", passwd="",
+                                                      database="collegeattend")
             self.db_cursor = self.connection.cursor()
 
         except Exception as e:
@@ -134,7 +136,8 @@ class datasetCreator(object):
             self.connection.commit()
 
     def main_logic(self):
-        self.db_cursor.execute("SELECT enrollement FROM studentdetails WHERE enrollement = " + (str(self.comboBox.currentText())))
+        self.db_cursor.execute(
+            "SELECT enrollement FROM studentdetails WHERE enrollement = " + (str(self.comboBox.currentText())))
         self.query_result1 = self.db_cursor.fetchall()
 
         for row1 in self.query_result1:
@@ -145,7 +148,8 @@ class datasetCreator(object):
         for (x, y, w, h) in self.faces:
             print(str(self.s_roll) + " " + str(self.image_version))
             cv2.rectangle(self.image, (x, y), (x + w, y + h), (255, 0, 0), 2)
-            cv2.imwrite("dataset/" + str(self.s_roll) + "." + str(self.image_version) + ".jpg", self.gray_image[y:y + h, x:x + w])
+            cv2.imwrite("dataset/" + str(self.s_roll) + "." + str(self.image_version) + ".jpg",
+                        self.gray_image[y:y + h, x:x + w])
             self.image_version = self.image_version + 1
 
     def trainer_logic(self, path):
