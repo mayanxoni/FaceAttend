@@ -2,7 +2,7 @@ import hashlib
 
 import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow 
 
 from ErrorMessg import  Ui_Dialog
 from signup import Ui_form_signup

@@ -14,6 +14,7 @@ from PIL import Image
 class datasetCreator(object):
 
     def __init__(self):
+        self.UserName = "khush"
         self.image = None
         self.image_version = 0
         self.classifier_path = "classifier.xml"
@@ -69,6 +70,8 @@ class datasetCreator(object):
         self.timer.timeout.connect(self.view_cam)
         self.button_capture.clicked.connect(self.controlTimer)
         self.connect_db()
+        self.load_subjects()
+        self.load_semester()
         self.fetch_enroll()
 
     def connect_db(self):
@@ -82,6 +85,27 @@ class datasetCreator(object):
             messageBox.setWindowTitle("Exception Caught!")
             messageBox.setText(str(e))
             messageBox.setIcon(QMessageBox.Critical)
+
+    def load_subjects(self):
+        self.subjects = []
+        self.db_cursor.execute("SELECT * FROM subjectteacher WHERE teacherid = %s", (self.UserName,))
+        subjects_result = self.db_cursor.fetchone()
+        if subjects_result is None:
+            print("Sorry! You can't register any faces, as you don't seem to have proper rights.\nPlease contact system administrator.")
+        else:
+            for row in subjects_result:
+                if row != self.UserName:
+                    if row:
+                        self.subjects.append(row)
+        self.array_length = len(self.subjects)
+        print("Total " + str(self.array_length) + " subjects found!")
+        for i in range(self.array_length):
+            print(self.subjects[i])
+            i += 1
+
+    def load_semester(self):
+        self.semesters = []
+        
 
     def fetch_enroll(self):
         self.failsafe_query = "SELECT * FROM unreg_students"
