@@ -3,7 +3,7 @@ import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 
 
 class automaticAttendance(object):
@@ -56,11 +56,18 @@ class automaticAttendance(object):
         self.button_capture.clicked.connect(self.control_timer)
         QtCore.QMetaObject.connectSlotsByName(form_camera_feed)
         self.connect_db()
+        self.attendance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     def connect_db(self):
         try:
             self.connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
             self.db_cursor = self.connection.cursor()
+            check_query = "SELECT * FROM operatingsystem WHERE classdate = (SELECT CURDATE())"
+            self.db_cursor.execute(check_query)
+            check_result = self.db_cursor.fetchall()
+            if check_result:
+                self.label_camera_feed.setText("Attendance is already recorded.\nPlease come back tomorrow!")
+                self.button_capture.hide()
 
         except Exception as e:
             messageBox = QMessageBox()
@@ -75,6 +82,7 @@ class automaticAttendance(object):
             self.button_capture.setText(self.stop)
             self.button_dashboard.hide()
         else:
+            self.alert_box()
             self.timer.stop()
             self.camera_feed.release()
             self.label_camera_feed.setText(self.success_message)
@@ -98,21 +106,32 @@ class automaticAttendance(object):
         for (x, y, w, h) in self.faces:
             student_id, confidence = self.recognizer.predict(self.gray_image[y:y + h, x:x + w])
             cv2.rectangle(self.image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            print(str(student_id))
             profile = self.get_profile(student_id)
             if profile is not None:
                 cv2.putText(self.image, profile, (x, y + h + 30), self.font, 1, (0, 0, 255), 3)
                 cv2.putText(self.image, "Accuracy: {0:.2f}%".format(round(100 - confidence, 2)), (x, y + h + 60), self.font, 1, (0, 0, 255), 3)
 
     def get_profile(self, s_roll):
+        print(str(s_roll))
         self.db_cursor.execute("SELECT name FROM studentdetails WHERE enrollement = " + str(s_roll))
         query_result = self.db_cursor.fetchone()
         for row in query_result:
             self.student_profile = row
+        print(self.student_profile)
         return self.student_profile
 
-    def fetch_details(self, student_id):
-        pass
-
+    def alert_box(self):
+        alert = QMessageBox()
+        alert.setIcon(QMessageBox.Warning)
+        alert.setText("Are you sure you want to record current attendance? You won't be able to do it again today.")
+        alert.setWindowTitle("Are you sure?")
+        alert.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        return_value = alert.exec()
+        if return_value == QMessageBox.Yes:
+            print('Yes clicked.')
+        if return_value == QMessageBox.No:
+            print('No clicked.')
 
 if __name__ == "__main__":
     import sys
