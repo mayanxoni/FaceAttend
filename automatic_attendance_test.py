@@ -14,7 +14,7 @@ class automaticAttendance(object):
         self.image_classifier = cv2.CascadeClassifier(self.classifier_path)
         self.recognizer.read("trainer/trainer.yml")
         self.font = cv2.FONT_HERSHEY_SIMPLEX
-        self.student_profile = None
+        self.roll_no = None
 
         """STRINGS"""
         self.stop = "Stop"
@@ -56,6 +56,8 @@ class automaticAttendance(object):
         self.button_capture.clicked.connect(self.control_timer)
         QtCore.QMetaObject.connectSlotsByName(form_camera_feed)
         self.connect_db()
+        self.studentlist = []
+        self.final_list = []
         self.attendance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     def connect_db(self):
@@ -88,6 +90,11 @@ class automaticAttendance(object):
             self.label_camera_feed.setText(self.success_message)
             self.button_dashboard.show()
             self.button_capture.hide()
+            for num in self.studentlist:
+                if num not in self.final_list:
+                    self.final_list.append(num)
+            self.final_list.sort()
+            print(self.final_list)
 
     def view_cam(self):
         ret, self.image = self.camera_feed.read()
@@ -98,7 +105,6 @@ class automaticAttendance(object):
         self.label_camera_feed.setPixmap(QPixmap.fromImage(q_img))
         print("worked1")
         self.main_logic()
-        print("worked2")
 
     def main_logic(self):
         self.gray_image = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
@@ -108,6 +114,7 @@ class automaticAttendance(object):
             cv2.rectangle(self.image, (x, y), (x + w, y + h), (255, 0, 0), 2)
             print(str(student_id))
             profile = self.get_profile(student_id)
+            self.studentlist.append(profile)
             if profile is not None:
                 cv2.putText(self.image, profile, (x, y + h + 30), self.font, 1, (0, 0, 255), 3)
                 cv2.putText(self.image, "Accuracy: {0:.2f}%".format(round(100 - confidence, 2)), (x, y + h + 60), self.font, 1, (0, 0, 255), 3)
@@ -117,9 +124,9 @@ class automaticAttendance(object):
         self.db_cursor.execute("SELECT name FROM studentdetails WHERE enrollement = " + str(s_roll))
         query_result = self.db_cursor.fetchone()
         for row in query_result:
-            self.student_profile = row
-        print(self.student_profile)
-        return self.student_profile
+            self.roll_no = row
+        print(self.roll_no)
+        return self.roll_no
 
     def alert_box(self):
         alert = QMessageBox()
@@ -130,6 +137,8 @@ class automaticAttendance(object):
         return_value = alert.exec()
         if return_value == QMessageBox.Yes:
             print('Yes clicked.')
+            insert_query = "INSERT INTO operatingsystem (`1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, " \
+                           "classdate) VALUES ()"
         if return_value == QMessageBox.No:
             print('No clicked.')
 
