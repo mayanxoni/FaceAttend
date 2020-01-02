@@ -3,7 +3,7 @@ import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from ErrorMessg import Ui_Dialog
-from automatic_attendance import automaticAttendance
+from automatic_attendance import AutomaticAttendance
 from manual_attendance import Ui_manual_attendance
 
 
@@ -170,7 +170,7 @@ class Ui_form_record_attendance(object):
                 self.semester = self.row
                 print(self.semester)
                 self.win_auto = QtWidgets.QWidget()
-                self.ui = automaticAttendance(self.UserName, self.comboBox.currentText(), self.semester)
+                self.ui = AutomaticAttendance(self.UserName, self.comboBox.currentText(), self.semester)
                 self.ui.setupUi(self.win_auto)
                 self.win_auto.show()
 

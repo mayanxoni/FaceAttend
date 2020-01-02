@@ -3,10 +3,10 @@ import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 
 
-class automaticAttendance(object):
+class AutomaticAttendance(object):
 
     def __init__(self):
         self.classifier_path = "classifier.xml"
@@ -14,16 +14,18 @@ class automaticAttendance(object):
         self.image_classifier = cv2.CascadeClassifier(self.classifier_path)
         self.recognizer.read("trainer/trainer.yml")
         self.font = cv2.FONT_HERSHEY_SIMPLEX
-        self.student_profile = None
+        self.return_value = None
 
         """STRINGS"""
         self.stop = "Stop"
         self.failsafe_warning = "Sorry, no unregistered student found.\n\nIf this seems strange to you, " \
                                 "please contact system administrator,\nand go back to Dashboard. "
         self.success_message = "Attendance recorded!"
-        self.default_label = "To start live camera feed, click \"Capture\" button."
+        self.default_label = "To start live camera feed, click \"Capture\" button.\n\nPLEASE BE AWARE BEFORE CLICKING " \
+                             "\"Capture\". YOU CAN ONLY CLICK THAT BUTTON ONCE FOR TODAY."
         self.button_dashboard_text = "Dashboard"
         self.button_capture_text = "Capture"
+        self.last_text = "Attendance is already recorded for today.\nPlease come back tomorrow!"
 
     def setupUi(self, form_camera_feed):
         self.timer = QTimer()
@@ -31,7 +33,7 @@ class automaticAttendance(object):
         form_camera_feed.resize(720, 480)
         form_camera_feed.setFixedSize(720, 480)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/newPrefix/FaceAttend.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_camera_feed.setWindowIcon(icon)
         self.horizontalLayout = QtWidgets.QHBoxLayout(form_camera_feed)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -43,10 +45,12 @@ class automaticAttendance(object):
         self.layout_vertical.addWidget(self.label_camera_feed, 0, QtCore.Qt.AlignHCenter)
         self.button_dashboard = QtWidgets.QPushButton(form_camera_feed)
         self.button_dashboard.setObjectName("button_dashboard")
+        self.button_dashboard.setToolTip("Go back to dashboard.")
         self.button_capture = QtWidgets.QPushButton(form_camera_feed)
         self.layout_vertical.addWidget(self.button_capture)
         self.layout_vertical.addWidget(self.button_dashboard)
         self.button_capture.setObjectName("button_capture")
+        self.button_capture.setToolTip("Please read the instructions carefully!")
         self.horizontalLayout.addLayout(self.layout_vertical)
         form_camera_feed.setWindowTitle("Automatic Attendance")
         self.label_camera_feed.setText(self.default_label)
@@ -56,11 +60,25 @@ class automaticAttendance(object):
         self.button_capture.clicked.connect(self.control_timer)
         QtCore.QMetaObject.connectSlotsByName(form_camera_feed)
         self.connect_db()
+        self.students_list = []
+        self.non_duplicate_list = []
+        self.sorted_list = []
 
     def connect_db(self):
         try:
-            self.connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="collegeattend")
+            self.connection = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                passwd="",
+                database="collegeattend"
+            )
             self.db_cursor = self.connection.cursor()
+            check_query = "SELECT * FROM operatingsystem WHERE classdate = (SELECT CURDATE())"
+            self.db_cursor.execute(check_query)
+            check_result = self.db_cursor.fetchall()
+            if check_result:
+                self.label_camera_feed.setText(self.last_text)
+                self.button_capture.hide()
 
         except Exception as e:
             messageBox = QMessageBox()
@@ -76,6 +94,15 @@ class automaticAttendance(object):
             self.button_dashboard.hide()
         else:
             self.timer.stop()
+            insert_query = "INSERT INTO operatingsystem VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (SELECT CURDATE()))"
+            self.db_cursor.execute(insert_query)
+            self.connection.commit()
+            for num in self.students_list:
+                if num not in self.non_duplicate_list:
+                    self.non_duplicate_list.append(num)
+            self.sorted_list = sorted(self.non_duplicate_list)
+            print(self.sorted_list)
+            self.alert_box()
             self.camera_feed.release()
             self.label_camera_feed.setText(self.success_message)
             self.button_dashboard.show()
@@ -90,35 +117,51 @@ class automaticAttendance(object):
         self.label_camera_feed.setPixmap(QPixmap.fromImage(q_img))
         print("worked1")
         self.main_logic()
-        print("worked2")
 
     def main_logic(self):
         self.gray_image = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
         self.faces = self.image_classifier.detectMultiScale(self.gray_image, 1.2, 5)
         for (x, y, w, h) in self.faces:
-            student_id, confidence = self.recognizer.predict(self.gray_image[y:y + h, x:x + w])
+            enroll_no, confidence = self.recognizer.predict(self.gray_image[y:y + h, x:x + w])
             cv2.rectangle(self.image, (x, y), (x + w, y + h), (255, 0, 0), 2)
-            profile = self.get_profile(student_id)
-            if profile is not None:
-                cv2.putText(self.image, profile, (x, y + h + 30), self.font, 1, (0, 0, 255), 3)
-                cv2.putText(self.image, "Accuracy: {0:.2f}%".format(round(100 - confidence, 2)), (x, y + h + 60), self.font, 1, (0, 0, 255), 3)
+            print(str(enroll_no))
+            roll_no = self.validate_roll_no(enroll_no)
+            self.students_list.append(roll_no)
 
-    def get_profile(self, s_roll):
-        self.db_cursor.execute("SELECT name FROM studentdetails WHERE enrollement = " + str(s_roll))
+    def validate_roll_no(self, enroll):
+        print(str(enroll))
+        self.db_cursor.execute("SELECT rollnum FROM studentdetails WHERE enrollement = " + str(enroll))
         query_result = self.db_cursor.fetchone()
         for row in query_result:
-            self.student_profile = row
-        return self.student_profile
+            self.return_value = row
+        print(self.return_value)
+        return self.return_value
 
-    def fetch_details(self, student_id):
-        pass
+    def alert_box(self):
+        alert = QMessageBox()
+        alert.setIcon(QMessageBox.Warning)
+        alert.setText("Attendance has been recorded for today. Please verify the attendance and scrutinise it using "
+                      "the Update menu from Dashboard if there is any scope of it.")
+        alert.setWindowTitle("Attendance recorded successfully successfully!")
+        alert.setStandardButtons(QMessageBox.Ok)
+        return_value = alert.exec()
+        if return_value == QMessageBox.Ok:
+            current_item = 0
+            while current_item < len(self.sorted_list):
+                update_query = "UPDATE operatingsystem SET `" + str(self.sorted_list[current_item]) + "` = 1 WHERE " \
+                                                                                                      "classdate = (" \
+                                                                                                      "SELECT " \
+                                                                                                      "CURDATE()) "
+                self.db_cursor.execute(update_query)
+                self.connection.commit()
+                current_item += 1
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     form_camera_feed = QtWidgets.QWidget()
-    ui = automaticAttendance()
+    ui = AutomaticAttendance()
     ui.setupUi(form_camera_feed)
     form_camera_feed.show()
     sys.exit(app.exec_())
