@@ -4,8 +4,9 @@
   <a href="https://github.com/mayanxoni/FaceAttend" alt="FaceAttend Logo">
     <img src="https://raw.githubusercontent.com/mayanxoni/FaceAttend/master/splash.png">
   </a>
-  [![Build Status](https://img.shields.io/badge/build%20status-in%20progess-green)](https://github.com/mayanxoni/FaceAttend/issues)
 </p>
+
+[![Build Status](https://img.shields.io/badge/build%20status-in%20progess-green)](https://github.com/mayanxoni/FaceAttend/issues)
 
 FaceAttend is a minor project for the final year of my MCA course work. It is an attendance management software that harnesses the power of ML and AI (in a broad sense) to record attendance using Facial Recognition. It is built upon Python and uses OpenCV library to recognise faces from live video feed or even a picture.
 
