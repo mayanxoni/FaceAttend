@@ -1,6 +1,6 @@
 # FaceAttend
 
-[![N|Solid](https://raw.githubusercontent.com/mayanxoni/FaceAttend/master/splash.png)](https://github.com/mayanxoni/FaceAttend)
+[![N|Solid](<img align="center" src="https://raw.githubusercontent.com/mayanxoni/FaceAttend/master/splash.png">)](https://github.com/mayanxoni/FaceAttend)
 
 [![Build Status](https://img.shields.io/badge/build%20status-in%20progess-green)](https://github.com/mayanxoni/FaceAttend/issues)
 
