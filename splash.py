@@ -1,61 +1,57 @@
+import os
+import sys
+import time
 from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import *
+from PyQt5.uic import loadUiType
+from login import Ui_form_login
 
-from PyQt5.QtWidgets import QTextBrowser, QLineEdit, QVBoxLayout, QApplication, QSplashScreen, QProgressBar, QDialog
+FROM_SPLASH, _ = loadUiType(os.path.join(os.path.dirname(__file__), "splash.ui"))
 
-
-class Form(QDialog):
-    """ Just a simple dialog with a couple of widgets"""
+class ThreadProgress(QThread):
+    thread_signal = pyqtSignal(int)
 
     def __init__(self, parent=None):
-        super(Form, self).__init__(parent)
-        self.browser = QTextBrowser()
-        self.setWindowTitle('Just a dialog')
-        self.lineedit = QLineEdit("Write something and press Enter")
-        self.lineedit.selectAll()
-        layout = QVBoxLayout()
-        layout.addWidget(self.browser)
-        layout.addWidget(self.lineedit)
-        self.setLayout(layout)
-        self.lineedit.setFocus()
-        self.connect(self.lineedit, SIGNAL("returnPressed()"),
-                     self.update_ui)
+        QThread.__init__(self, parent)
 
-    def update_ui(self):
-        self.browser.append(self.lineedit.text())
+    def run(self):
+        i = 0
+        while i < 101:
+            time.sleep(0.1)
+            self.thread_signal.emit(i)
+            i += 10
 
+class SplashScreen(QMainWindow, FROM_SPLASH):
+    def __init__(self, parent=None):
+        super(SplashScreen, self).__init__(parent)
+        QMainWindow.__init__(self)
+        self.setupUi(self)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        progress = ThreadProgress(self)
+        progress.thread_signal.connect(self.progress)
+        progress.start()
 
-if __name__ == "__main__":
-    import sys, time
+    @pyqtSlot(int)
+    def progress(self, i):
+        self.progress_bar.setValue(i)
+        if i == 100:
+            self.hide()
+            form_login = QtWidgets.QMainWindow()
+            login_object = Ui_form_login()
+            login_object.setupUi(form_login)
+            form_login.show()
 
+def main():
     app = QApplication(sys.argv)
+    splash_screen = SplashScreen()
+    splash_screen.show()
+    app.exec_()
 
-    # Create and display the splash screen
-    splash_pix = QPixmap('assets/FaceAttend2.png')
 
-    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
-    splash.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
-    splash.setEnabled(False)
-    # splash = QSplashScreen(splash_pix)
-    # adding progress bar
-    progressBar = QProgressBar(splash)
-    progressBar.setMaximum(10)
-    progressBar.setGeometry(0, splash_pix.height() - 50, splash_pix.width(), 20)
-
-    # splash.setMask(splash_pix.mask())
-
-    splash.show()
-    splash.showMessage("<h1><font color='green'>Welcome BeeMan!</font></h1>", Qt.AlignTop | Qt.AlignCenter, Qt.black)
-
-    for i in range(1, 11):
-        progressBar.setValue(i)
-        t = time.time()
-        while time.time() < t + 0.1:
-            app.processEvents()
-
-    # Simulate something that takes time
-    time.sleep(1)
-
-    form = Form()
-    form.show()
-    splash.finish(form)
-    sys.exit(app.exec_())
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as why:
+        print(why)
