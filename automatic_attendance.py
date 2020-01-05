@@ -4,11 +4,20 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import *
 
 
 class AutomaticAttendance(object):
 
-    def __init__(self):
+    def __init__(self,UserName, Subject, Semester,Record,automatic):
+        self.UserName = UserName
+        self.Subject = Subject
+        self.Semester = Semester
+        self.record = Record
+        self.automatic = automatic
         self.classifier_path = "classifier.xml"
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
         self.image_classifier = cv2.CascadeClassifier(self.classifier_path)
@@ -35,6 +44,7 @@ class AutomaticAttendance(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_camera_feed.setWindowIcon(icon)
+
         self.horizontalLayout = QtWidgets.QHBoxLayout(form_camera_feed)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.layout_vertical = QtWidgets.QVBoxLayout()
@@ -58,6 +68,7 @@ class AutomaticAttendance(object):
         self.button_capture.setText(self.button_capture_text)
         self.timer.timeout.connect(self.view_cam)
         self.button_capture.clicked.connect(self.control_timer)
+        self.button_dashboard.clicked.connect(self.BackToDashboard)
         QtCore.QMetaObject.connectSlotsByName(form_camera_feed)
         self.connect_db()
         self.students_list = []
@@ -73,7 +84,7 @@ class AutomaticAttendance(object):
                 database="collegeattend"
             )
             self.db_cursor = self.connection.cursor()
-            check_query = "SELECT * FROM operatingsystem WHERE classdate = (SELECT CURDATE())"
+            check_query = "SELECT * FROM "+self.Subject+" WHERE classdate = (SELECT CURDATE())"
             self.db_cursor.execute(check_query)
             check_result = self.db_cursor.fetchall()
             if check_result:
@@ -94,7 +105,7 @@ class AutomaticAttendance(object):
             self.button_dashboard.hide()
         else:
             self.timer.stop()
-            insert_query = "INSERT INTO operatingsystem VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (SELECT CURDATE()))"
+            insert_query = "INSERT INTO `"+self.Subject+"` VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (SELECT CURDATE()))"
             self.db_cursor.execute(insert_query)
             self.connection.commit()
             for num in self.students_list:
@@ -130,7 +141,7 @@ class AutomaticAttendance(object):
 
     def validate_roll_no(self, enroll):
         print(str(enroll))
-        self.db_cursor.execute("SELECT rollnum FROM studentdetails WHERE enrollement = " + str(enroll))
+        self.db_cursor.execute("SELECT rollnum FROM studentdetails WHERE enrollement = " + str(enroll) + " and  semester = '"+self.Semester+"'")
         query_result = self.db_cursor.fetchone()
         for row in query_result:
             self.return_value = row
@@ -148,15 +159,14 @@ class AutomaticAttendance(object):
         if return_value == QMessageBox.Ok:
             current_item = 0
             while current_item < len(self.sorted_list):
-                update_query = "UPDATE operatingsystem SET `" + str(self.sorted_list[current_item]) + "` = 1 WHERE " \
-                                                                                                      "classdate = (" \
-                                                                                                      "SELECT " \
-                                                                                                      "CURDATE()) "
+                update_query = "UPDATE `"+self.Subject+"` SET `" + str(self.sorted_list[current_item]) + "` = 1 WHERE `classdate` = (SELECT CURDATE())"
                 self.db_cursor.execute(update_query)
                 self.connection.commit()
                 current_item += 1
 
-
+    def BackToDashboard(self):
+        self.automatic.close()
+        self.record.close()
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

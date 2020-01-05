@@ -26,6 +26,10 @@ class Ui_Chart(object):
 
     def setupUi(self, Form):
         Form.resize(800, 600)
+        Form.setWindowTitle("Analytics")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Form.setWindowIcon(icon)
         self.Calculate()
         low = QBarSet("Short")
         high = QBarSet("Clear")

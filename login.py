@@ -139,7 +139,6 @@ class Ui_form_login(object):
             if myresult is None:
                 self.ErrorReport(str("Username or password don't match."))
             elif myresult[0] == "Admin":
-                self.InfoReport(str("admin account"))
                 self.WinAdmin = QtWidgets.QWidget()
                 self.ui = Ui_form_admin_panel(form_login)
                 self.ui.setupUi(self.WinAdmin)
@@ -148,7 +147,6 @@ class Ui_form_login(object):
                 self.line_edit_password.clear()
                 self.WinAdmin.show()
             else:
-                self.InfoReport(str("Teacher account"))
                 self.WinDash = QtWidgets.QWidget()
                 self.ui = Ui_form_dashboard(UserName,form_login)
                 self.ui.setupUi(self.WinDash)
@@ -166,7 +164,7 @@ class Ui_form_login(object):
 
     def FuncSignup(self,form_login):
         self.WinSignup = QtWidgets.QWidget()
-        self.ui = Ui_form_signup(form_login)
+        self.ui = Ui_form_signup(form_login, self.WinSignup)
         self.ui.setupUi(self.WinSignup)
         form_login.hide()
         self.WinSignup.show()

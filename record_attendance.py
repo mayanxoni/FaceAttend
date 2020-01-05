@@ -9,9 +9,10 @@ from manual_attendance import Ui_manual_attendance
 
 class Ui_form_record_attendance(object):
 
-    def __init__(self, UserName):
+    def __init__(self, UserName , record):
         # self.dash = Ui_form_dashboard()
         self.UserName = UserName
+        self.record = record
 
     def setupUi(self, form_record_attendance):
         form_record_attendance.setObjectName("form_record_attendance")
@@ -170,7 +171,7 @@ class Ui_form_record_attendance(object):
                 self.semester = self.row
                 print(self.semester)
                 self.win_auto = QtWidgets.QWidget()
-                self.ui = AutomaticAttendance(self.UserName, self.comboBox.currentText(), self.semester)
+                self.ui = AutomaticAttendance(self.UserName, self.comboBox.currentText(), self.semester,self.record,self.win_auto)
                 self.ui.setupUi(self.win_auto)
                 self.win_auto.show()
 

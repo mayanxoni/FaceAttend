@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from record_attendance import  Ui_form_record_attendance
 from apply_filters import  Ui_apply_filters
+from dataset_creator import  datasetCreator
 
 class Ui_form_dashboard(object):
 
@@ -118,6 +119,7 @@ class Ui_form_dashboard(object):
         self.button_record.clicked.connect(self.FuncRecordAttandance)
         self.button_logout.clicked.connect(lambda :self.FuncLogout(form_dashboard))
         self.button_update.clicked.connect(self.FuncUpdateAttandance)
+        self.button_register.clicked.connect(self.FuncDataSet)
 
     def retranslateUi(self, form_dashboard):
         _translate = QtCore.QCoreApplication.translate
@@ -135,7 +137,7 @@ class Ui_form_dashboard(object):
 
     def FuncRecordAttandance(self):
         self.WinRecord = QtWidgets.QWidget()
-        self.ui = Ui_form_record_attendance(self.UserName)
+        self.ui = Ui_form_record_attendance(self.UserName,self.WinRecord)
         self.ui.setupUi(self.WinRecord)
         self.WinRecord.show()
 
@@ -148,6 +150,13 @@ class Ui_form_dashboard(object):
     def FuncLogout(self,form_dashboard):
         form_dashboard.close()
         self.form.show()
+
+    def FuncDataSet(self):
+        self.WinDateset = QtWidgets.QWidget()
+        self.ui = datasetCreator(self.WinDateset)
+        self.ui.setupUi(self.WinDateset)
+        self.WinDateset.show()
+
 
 
 if __name__ == "__main__":

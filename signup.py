@@ -8,7 +8,8 @@ from ErrorMessg import Ui_Dialog
 
 
 class Ui_form_signup(object):
-    def __init__(self,form):
+    def __init__(self,form,signup):
+        self.sigup = signup
         self.form = form
 
     def setupUi(self, form_signup):
@@ -80,6 +81,14 @@ class Ui_form_signup(object):
         self.line_edit_fullname.setClearButtonEnabled(True)
         self.line_edit_fullname.setObjectName("line_edit_fullname")
         self.gridLayout_3.addWidget(self.line_edit_fullname, 3, 0, 1, 1)
+        self.pushButton = QtWidgets.QPushButton(form_signup)
+        self.pushButton.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("assets/return.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton.setIcon(icon2)
+        self.pushButton.setFlat(True)
+        self.pushButton.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton, 0, 0, 1, 1, QtCore.Qt.AlignLeft)
 
 
 
@@ -92,6 +101,7 @@ class Ui_form_signup(object):
         form_signup.setTabOrder(self.line_edit_password, self.line_edit_cpassword)
         form_signup.setTabOrder(self.line_edit_cpassword, self.button_signup)
         self.button_signup.clicked.connect(self.SignUpDetails)
+        self.pushButton.clicked.connect(self.BackButton)
 
 
     def retranslateUi(self, form_signup):
@@ -104,13 +114,6 @@ class Ui_form_signup(object):
         self.line_edit_contact_number.setPlaceholderText(_translate("form_signup", "Contact Number"))
         self.line_edit_fullname.setPlaceholderText(_translate("form_signup", "Full Name"))
 
-    def closeEvent(self, event):
-        reply = QtGui.QMessageBox.question(self, 'Message', "Are you sure to quit?", QtGui.QMessageBox.Yes,
-                                           QtGui.QMessageBox.No)
-        if reply == QtGui.QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
 
 
     def SignUpDetails(self):
@@ -135,14 +138,8 @@ class Ui_form_signup(object):
                             mycursor.execute("insert into userdatabase values(%s ,%s ,%s ,%s)",
                                              (self.line_edit_username.text(), spass, self.line_edit_fullname.text(), self.line_edit_contact_number.text()))
                             mydb.commit()
-                            form_signup.close()
+                            self.sigup.close()
                             self.form.show()
-                            # app = QtWidgets.QApplication(sys.argv)
-                            # super.WinLogin = QtWidgets.QMainWindow()
-                            # self.ui =  Ui_form_login()
-                            # self.ui.setupUi(self.WinLogin)
-                            # form_signup.close()
-                            # self.WinLogin.show()
                         except mysql.connector.Error as error:
                             self.ErrorReport(format(error))
                     else:
@@ -162,6 +159,9 @@ class Ui_form_signup(object):
          ui = Ui_Dialog(message)
          ui.setupUi(messageBox)
 
+    def BackButton(self):
+        self.sigup.close()
+        self.form.show()
 
 
 

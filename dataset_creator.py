@@ -13,7 +13,8 @@ from PIL import Image
 
 class datasetCreator(object):
 
-    def __init__(self):
+    def __init__(self,datasetCreator):
+        self.datasetCreator = datasetCreator
         self.image = None
         self.image_version = 0
         self.classifier_path = "classifier.xml"
@@ -37,7 +38,7 @@ class datasetCreator(object):
         form_dataset_creator.setFixedSize(720, 480)
         form_dataset_creator.setWindowTitle("Dataset Creator")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/newPrefix/FaceAttend.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/FaceAttend2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         form_dataset_creator.setWindowIcon(icon)
         self.horizontalLayout = QtWidgets.QHBoxLayout(form_dataset_creator)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -68,6 +69,7 @@ class datasetCreator(object):
         QtCore.QMetaObject.connectSlotsByName(form_dataset_creator)
         self.timer.timeout.connect(self.view_cam)
         self.button_capture.clicked.connect(self.controlTimer)
+        self.button_dashboard.clicked.connect(self.BackToDashboard)
         self.connect_db()
         self.fetch_enroll()
 
@@ -167,6 +169,8 @@ class datasetCreator(object):
                 list_id.append(image_id)
         return list_face_samples, list_id
 
+    def BackToDashboard(self):
+        self.datasetCreator.close()
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
