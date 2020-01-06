@@ -21,7 +21,7 @@ class ThreadProgress(QThread):
         while i < 101:
             time.sleep(0.1)
             self.thread_signal.emit(i)
-            i += 1
+            i += 10
 
 class SplashScreen(QMainWindow, FROM_SPLASH):
     def __init__(self, parent=None):
